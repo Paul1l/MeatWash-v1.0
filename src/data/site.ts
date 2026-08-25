@@ -4,7 +4,7 @@ export const SITE = {
   tagline: "Детейлинг-мойка в центре Москвы",
   description:
     "Meat Wash — сеть премиальных детейлинг-моек в Москве. Ручная мойка, химчистка салона, полировка, керамика и оклейка. Онлайн-запись 24/7, закрытый паркинг, рейтинг 5,0 на Яндекс Картах.",
-  url: "https://meatwash.ru",
+  url: "https://meat-wash.vercel.app",
   booking: "https://n975571.yclients.com",
   rating: 5.0,
   ratingsCount: 292,

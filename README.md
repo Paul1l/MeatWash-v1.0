@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meat Wash — сайт сети детейлинг-моек
 
-## Getting Started
+Премиальный сайт для сети автомоек **Meat Wash** (Москва). Структура и визуальный
+язык — по образцу [porsche.com](https://www.porsche.com): полноэкранные
+кинематографичные обложки, тонкие линейки, много воздуха, один акцентный цвет,
+карусели карточек и анимации по скроллу.
 
-First, run the development server:
+**Прод:** https://meat-wash.vercel.app
+
+## Стек
+
+- Next.js 16 (App Router, Turbopack) — все страницы статические
+- Tailwind CSS v4 (токены в `src/app/globals.css`)
+- Motion (framer-motion) — параллакс, hero-раскрытия, оверлеи, layout-анимации
+- next/font (Manrope, кириллица), next/image
+
+## Страницы
+
+| Путь | Что внутри |
+|---|---|
+| `/` | Обложка, программы мойки (карусель), процесс, услуги, цифры, обе точки, отзывы, акция |
+| `/programmy` | 5 программ, переключатель типа кузова с пересчётом цен, таблица сравнения, детальные блоки |
+| `/uslugi` | Полный прайс (45 позиций, 8 направлений), фильтр по категориям, поиск |
+| `/detailing` | Детейлинг-центр на Технопарке: направления, галерея, адрес |
+| `/adresa` | Обе точки: часы, метро, телефоны, особенности, карты Яндекса |
+| `/o-nas` | Принципы, цифры, возможности площадок |
+
+## Данные
+
+Всё содержимое — из карточек организаций на Яндекс Картах:
+
+- [Meat Wash, Мясницкая ул., 11](https://yandex.ru/maps/org/meat_wash/191686454110/)
+- [Meat Wash Технопарк, просп. Андропова, 8с2](https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/)
+
+Правится в `src/data/`:
+
+- `site.ts` — контакты, адреса, часы, метро, рейтинги, акция
+- `programs.ts` — 5 программ мойки и цены по 4 типам кузова
+- `services.ts` — полный прайс по категориям
+- `reviews.ts` — отзывы
+
+Фотографии — из галерей тех же карточек, лежат в `public/img/`.
+
+## Что нужно уточнить у клиента
+
+1. **Состав пакетов мойки** (`src/data/programs.ts`, поле `includes`) — на Яндексе
+   опубликованы только названия, длительность и цены. Перечень работ внутри
+   каждого пакета собран из их же прайса и требует подтверждения.
+2. **Цена детейлинг-мойки от реагентов для микроавтобуса** — 6 450 ₽ выведена из
+   диапазона «4 950 — 6 450 ₽» на карточке (в самой карточке ошибка: «1 ₽»).
+3. **Домен** — сейчас `meat-wash.vercel.app`. При покупке домена поменять
+   `SITE.url` в `src/data/site.ts`.
+4. **Мессенджеры** — ссылки WhatsApp собраны из номеров телефонов
+   (`wa.me/79300352325`). Telegram в модалку не добавлен: прямой ссылки нет.
+5. **Форма заявки** — намеренно не сделана: без бэкенда она была бы нерабочей.
+   Запись ведёт в YCLIENTS (`https://n975571.yclients.com`) и на телефоны.
+
+## Разработка
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Деплой
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel --prod
+```
