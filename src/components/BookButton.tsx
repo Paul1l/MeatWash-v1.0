@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useBooking } from "./Booking";
 import { ArrowIcon } from "./ui";
+import { Magnetic } from "./effects";
 
 type Variant = "solid" | "outline" | "outline-light" | "ghost" | "text";
 type Size = "sm" | "md" | "lg";
@@ -32,6 +33,7 @@ export default function BookButton({
   size = "md",
   className = "",
   arrow = true,
+  magnetic = false,
 }: {
   children?: ReactNode;
   service?: string;
@@ -39,9 +41,11 @@ export default function BookButton({
   size?: Size;
   className?: string;
   arrow?: boolean;
+  magnetic?: boolean;
 }) {
   const { open } = useBooking();
-  return (
+
+  const button = (
     <button
       type="button"
       onClick={() => open(service)}
@@ -57,4 +61,6 @@ export default function BookButton({
       {arrow && <ArrowIcon className="h-4 w-4" />}
     </button>
   );
+
+  return magnetic ? <Magnetic>{button}</Magnetic> : button;
 }

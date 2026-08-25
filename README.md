@@ -11,8 +11,30 @@
 
 - Next.js 16 (App Router, Turbopack) — все страницы статические
 - Tailwind CSS v4 (токены в `src/app/globals.css`)
-- Motion (framer-motion) — параллакс, hero-раскрытия, оверлеи, layout-анимации
+- Motion (framer-motion) — параллакс, раскрытия, оверлеи, layout-анимации
+- Lenis — инерционный скролл
+- Собственный WebGL-шейдер без зависимостей (`src/components/WaterCanvas.tsx`)
 - next/font (Manrope, кириллица), next/image
+
+## «Вау»-слой
+
+| Что | Где |
+|---|---|
+| Водный WebGL-шейдер на обложках: капли по стеклу, рефракция, хроматическая аберрация, «протирка» под курсором | `WaterCanvas.tsx` |
+| Инерционный скролл | `SmoothScroll.tsx` (Lenis) |
+| Свой курсор: точка + кольцо на `mix-blend-difference`, подписи «листай» / «смотреть» | `Cursor.tsx` |
+| Переход между страницами колоннами с логотипом | `PageTransition.tsx` |
+| Посимвольное раскрытие заголовков | `SplitText.tsx` |
+| Программы мойки: секция пиннится, карточки едут горизонтально | `PinnedPrograms.tsx` |
+| Магнитные кнопки, marquee со скоростью скролла, 3D-tilt со спотлайтом, стопка карточек | `effects.tsx` |
+| Плёночное зерно и виньетка | `globals.css` |
+
+Всё уважает `prefers-reduced-motion`, шейдер не стартует без WebGL, курсор — только
+при `pointer: fine` и ширине от 1024px.
+
+Шейдерная математика взята из каталога [21st.dev](https://21st.dev)
+(`ruixen.ui/ripple-distortion`, `paper-design/water`, Apache-2.0) и переписана
+без three.js: добавлены капли с хвостами, аберрация и «протирка» под курсором.
 
 ## Страницы
 
@@ -67,4 +89,18 @@ npm run lint
 
 ```bash
 vercel --prod
+```
+
+## 21st.dev
+
+MCP-сервер подключён локально:
+
+```bash
+claude mcp add --transport http 21st https://21st.dev/api/mcp --header "x-api-key: <ключ>"
+```
+
+CLI работает с тем же ключом через `TWENTYFIRST_TOKEN`:
+
+```bash
+TWENTYFIRST_TOKEN=<ключ> npx -y @21st-dev/cli@latest search "webgl shader hero"
 ```

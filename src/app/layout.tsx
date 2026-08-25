@@ -6,6 +6,9 @@ import { BookingProvider } from "@/components/Booking";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RevealRoot from "@/components/RevealRoot";
+import SmoothScroll from "@/components/SmoothScroll";
+import Cursor from "@/components/Cursor";
+import PageTransition from "@/components/PageTransition";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -95,7 +98,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <BookingProvider>
+          <SmoothScroll />
           <RevealRoot />
+          <PageTransition />
+          <Cursor />
+          <span className="grain-layer" aria-hidden="true" />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

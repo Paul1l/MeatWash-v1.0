@@ -162,6 +162,7 @@ export default function DetailingPage() {
             {GALLERY.map((g, i) => (
               <figure
                 key={g.src}
+                data-cursor="view"
                 className="group relative aspect-[3/4] w-[72vw] max-w-[380px] overflow-hidden bg-mist sm:w-[40vw] lg:w-[24vw]"
                 data-reveal
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}

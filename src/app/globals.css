@@ -31,7 +31,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
@@ -42,7 +41,7 @@ body {
   font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -232,5 +231,75 @@ a:hover > .underline-grow {
 }
 
 .no-scroll {
+  overflow: hidden;
+}
+
+/* ---------- wow layer ---------- */
+
+/* Custom cursor takes over on precise pointers only. */
+@media (pointer: fine) and (min-width: 1024px) {
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button,
+  html.has-cursor [role="button"],
+  html.has-cursor summary {
+    cursor: none;
+  }
+  html.has-cursor input,
+  html.has-cursor textarea,
+  html.has-cursor select,
+  html.has-cursor iframe {
+    cursor: auto;
+  }
+}
+
+/* Film grain over the whole page — sits under the header and cursor. */
+.grain-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 700ms steps(2) infinite;
+}
+
+@keyframes grainShift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-2%, 1%, 0); }
+  100% { transform: translate3d(1%, -2%, 0); }
+}
+
+/* Corner vignette on dark stages. */
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-layer {
+    animation: none;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+html.lenis-stopped {
   overflow: hidden;
 }

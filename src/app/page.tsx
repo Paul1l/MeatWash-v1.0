@@ -5,9 +5,11 @@ import Stage from "@/components/Stage";
 import Rail from "@/components/Rail";
 import Counter from "@/components/Counter";
 import BookButton from "@/components/BookButton";
+import PinnedPrograms from "@/components/PinnedPrograms";
+import SplitText from "@/components/SplitText";
+import { Tilt, VelocityMarquee, StackCard } from "@/components/effects";
 import { ArrowLink, SectionHead } from "@/components/ui";
-import { ProgramCard, ServiceCard } from "@/components/cards";
-import { PROGRAMS } from "@/data/programs";
+import { ServiceCard } from "@/components/cards";
 import { SERVICE_GROUPS } from "@/data/services";
 import { REVIEWS } from "@/data/reviews";
 import { BRANCHES, PROMO, SITE } from "@/data/site";
@@ -28,22 +30,30 @@ const STEPS = [
   {
     n: "01",
     t: "Запись",
-    d: "Онлайн за минуту или звонком. Выбираете время — машина заезжает без очереди.",
+    d: "Онлайн за минуту или звонком. Выбираете время — машина заезжает в своё окно, без очереди на въезде.",
+    img: "/img/entrance.jpg",
+    alt: "Въезд на мойку Meat Wash",
   },
   {
     n: "02",
     t: "Приёмка",
-    d: "Смотрим состояние вместе с вами и говорим, что реально нужно, а что нет.",
+    d: "Смотрим состояние вместе с вами и говорим, что реально нужно, а что подождёт. Без попыток дописать в чек лишнее.",
+    img: "/img/lounge.jpg",
+    alt: "Зона приёмки Meat Wash",
   },
   {
     n: "03",
     t: "Работа",
-    d: "Индивидуальный подбор химии под покрытие и загрязнение. Ничего универсального.",
+    d: "Индивидуальный подбор химии под покрытие и загрязнение. Ручная проработка там, где автомат оставляет разводы.",
+    img: "/img/process-pressure.jpg",
+    alt: "Мойка автомобиля аппаратом высокого давления",
   },
   {
     n: "04",
     t: "Выдача",
-    d: "Показываем результат при свете. Не понравилось — переделываем на месте.",
+    d: "Показываем результат при рабочем свете и на солнце. Не понравилось — переделываем на месте, до выдачи ключей.",
+    img: "/img/m4-rear-plate.jpg",
+    alt: "BMW M4 после детейлинга",
   },
 ];
 
@@ -58,7 +68,9 @@ export default function Home() {
         sub="Детейлинг-мойка в центре Москвы. Ручная работа, подбор химии под покрытие и два часа закрытого паркинга, пока вы заняты своими делами."
         actions={
           <>
-            <BookButton size="lg">Записаться онлайн</BookButton>
+            <BookButton size="lg" magnetic>
+              Записаться онлайн
+            </BookButton>
             <ArrowLink href="/programmy" tone="paper">
               Программы мойки
             </ArrowLink>
@@ -69,7 +81,10 @@ export default function Home() {
             <div>
               <dt className="eyebrow text-paper/45">Рейтинг</dt>
               <dd className="mt-2 text-[15px] font-semibold">
-                {SITE.rating.toLocaleString("ru-RU", { minimumFractionDigits: 1 })} на Яндекс Картах
+                {SITE.rating.toLocaleString("ru-RU", {
+                  minimumFractionDigits: 1,
+                })}{" "}
+                на Яндекс Картах
               </dd>
             </div>
             <div>
@@ -90,27 +105,23 @@ export default function Home() {
         }
       />
 
-      {/* ticker */}
-      <div className="overflow-hidden border-b border-line bg-paper py-5">
-        <div className="marquee-track flex w-max gap-10 whitespace-nowrap">
-          {[0, 1].map((pass) => (
-            <div key={pass} className="flex gap-10" aria-hidden={pass === 1}>
-              {TICKER.map((t) => (
-                <span
-                  key={t}
-                  className="flex items-center gap-10 text-[13px] font-semibold uppercase tracking-[0.18em] text-muted"
-                >
-                  {t}
-                  <span className="h-1 w-1 rounded-full bg-brand" />
-                </span>
-              ))}
-            </div>
+      {/* velocity ticker */}
+      <div className="border-b border-line bg-paper py-6">
+        <VelocityMarquee baseSpeed={28}>
+          {TICKER.map((t) => (
+            <span
+              key={t}
+              className="flex shrink-0 items-center gap-10 pr-10 text-[13px] font-semibold uppercase tracking-[0.18em] text-muted"
+            >
+              {t}
+              <span className="h-1 w-1 shrink-0 rounded-full bg-brand" />
+            </span>
           ))}
-        </div>
+        </VelocityMarquee>
       </div>
 
-      {/* programs */}
-      <section className="bg-paper py-20 md:py-28">
+      {/* programs — pinned horizontal scroll on desktop */}
+      <section className="bg-paper pt-20 md:pt-28">
         <div className="shell">
           <SectionHead
             eyebrow="Программы мойки"
@@ -120,19 +131,12 @@ export default function Home() {
           />
         </div>
 
-        <div className="mt-14 md:mt-16">
-          <Rail
-            className="shell"
-            label="Программы мойки"
-          >
-            {PROGRAMS.map((p, i) => (
-              <ProgramCard key={p.slug} program={p} index={i} />
-            ))}
-          </Rail>
+        <div className="mt-12 md:mt-14">
+          <PinnedPrograms />
         </div>
       </section>
 
-      {/* process */}
+      {/* process — stacking cards */}
       <section className="bg-bone py-20 md:py-28">
         <div className="shell">
           <SectionHead
@@ -140,15 +144,14 @@ export default function Home() {
             title="Четыре шага, в которых нечего усложнять"
           />
 
-          <div className="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:hidden">
             {STEPS.map((s, i) => (
-              <div
-                key={s.n}
-                className="group bg-bone p-8 transition-colors duration-500 hover:bg-paper lg:p-10"
-              >
+              <div key={s.n} className="bg-bone p-8">
                 <div
                   data-reveal
-                  style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+                  style={
+                    { "--reveal-delay": `${i * 80}ms` } as React.CSSProperties
+                  }
                 >
                   <span className="text-[13px] font-bold tabular-nums text-brand">
                     {s.n}
@@ -161,6 +164,43 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
+
+          <div className="mt-16 hidden lg:block">
+            {STEPS.map((s, i) => (
+              <StackCard key={s.n} index={i} total={STEPS.length} className="mb-7">
+                <article className="grid min-h-[54vh] grid-cols-[1.1fr_1fr] overflow-hidden border border-line bg-paper shadow-[0_-30px_70px_-30px_rgba(11,11,12,0.22)]">
+                  <div className="flex flex-col justify-between p-12 xl:p-16">
+                    <div className="flex items-center gap-4">
+                      <span className="text-[13px] font-bold tabular-nums text-brand">
+                        {s.n}
+                      </span>
+                      <span className="h-px w-12 bg-line" />
+                      <span className="eyebrow text-muted">
+                        Шаг {i + 1} из {STEPS.length}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-[clamp(2rem,1.4rem+2vw,3.4rem)] font-bold tracking-[-0.04em]">
+                        {s.t}
+                      </h3>
+                      <p className="mt-6 max-w-[42ch] text-[17px] leading-relaxed text-muted">
+                        {s.d}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="relative overflow-hidden bg-mist">
+                    <Image
+                      src={s.img}
+                      alt={s.alt}
+                      fill
+                      sizes="45vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </article>
+              </StackCard>
             ))}
           </div>
         </div>
@@ -178,28 +218,28 @@ export default function Home() {
 
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICE_GROUPS.map((g, i) => (
-              <ServiceCard key={g.slug} group={g} index={i} />
+              <Tilt key={g.slug} className="group" max={6}>
+                <ServiceCard group={g} index={i} />
+              </Tilt>
             ))}
           </div>
         </div>
       </section>
 
       {/* stats */}
-      <section className="grain relative overflow-hidden bg-ink py-20 text-paper md:py-28">
+      <section className="vignette relative overflow-hidden bg-ink py-20 text-paper md:py-28">
         <div className="shell relative">
           <div className="grid gap-12 md:grid-cols-[1fr_1.15fr] md:items-end">
             <div>
               <p className="eyebrow text-brand-bright" data-reveal>
                 Репутация
               </p>
-              <h2
-                className="display-bold mt-5 text-[clamp(2rem,1.3rem+2.8vw,4rem)]"
-                data-reveal
-                style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
-              >
-                Пятёрка — не маркетинг,
-                <br />а среднее по 292 оценкам.
-              </h2>
+              <SplitText
+                as="h2"
+                text="Пятёрка — не маркетинг, а среднее по 292 оценкам."
+                className="display-bold mt-5 block max-w-[15ch] text-[clamp(2rem,1.3rem+2.8vw,4rem)]"
+                stagger={0.012}
+              />
             </div>
             <p
               className="lead text-muted-dark"
@@ -213,7 +253,10 @@ export default function Home() {
 
           <dl className="mt-16 grid gap-px border-t border-line-dark sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { v: <Counter to={5} decimals={1} />, l: "Рейтинг на Яндекс Картах" },
+              {
+                v: <Counter to={5} decimals={1} />,
+                l: "Рейтинг на Яндекс Картах",
+              },
               { v: <Counter to={292} />, l: "Оценок по двум точкам" },
               { v: <Counter to={228} />, l: "Развёрнутых отзыва" },
               { v: <Counter to={2} />, l: "Адреса в Москве" },
@@ -222,7 +265,9 @@ export default function Home() {
                 key={i}
                 className="border-line-dark pt-8 sm:pr-8 lg:border-r lg:last:border-r-0"
                 data-reveal
-                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+                style={
+                  { "--reveal-delay": `${i * 90}ms` } as React.CSSProperties
+                }
               >
                 <dd className="display-bold text-[clamp(2.6rem,2rem+2.6vw,4.5rem)]">
                   {s.v}
@@ -244,7 +289,9 @@ export default function Home() {
         title={<>Флагман в 470 метрах от Лубянки</>}
         actions={
           <>
-            <BookButton variant="outline">Записаться сюда</BookButton>
+            <BookButton variant="outline" magnetic>
+              Записаться сюда
+            </BookButton>
             <ArrowLink href="/adresa#myasnitskaya">Как проехать</ArrowLink>
           </>
         }
@@ -273,7 +320,9 @@ export default function Home() {
         tone="bone"
         actions={
           <>
-            <BookButton variant="outline">Записаться сюда</BookButton>
+            <BookButton variant="outline" magnetic>
+              Записаться сюда
+            </BookButton>
             <ArrowLink href="/detailing">О детейлинге</ArrowLink>
           </>
         }
@@ -301,11 +350,7 @@ export default function Home() {
             eyebrow="Отзывы"
             title="Что пишут после выдачи"
             action={
-              <ArrowLink
-                href={BRANCHES[0].mapUrl}
-                external
-                tone="paper"
-              >
+              <ArrowLink href={BRANCHES[0].mapUrl} external tone="paper">
                 Читать на Яндекс Картах
               </ArrowLink>
             }
@@ -317,12 +362,16 @@ export default function Home() {
             {REVIEWS.map((r, i) => (
               <figure
                 key={r.author + r.date}
-                className="flex w-[82vw] max-w-[440px] flex-col justify-between border border-line-dark p-8 sm:w-[46vw] lg:w-[30vw]"
+                data-cursor="drag"
+                className="flex w-[82vw] max-w-[440px] flex-col justify-between border border-line-dark p-8 transition-colors duration-500 hover:border-paper/35 sm:w-[46vw] lg:w-[30vw]"
                 data-reveal
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >
                 <div>
-                  <div className="flex gap-1 text-brand-bright" aria-label="5 из 5">
+                  <div
+                    className="flex gap-1 text-brand-bright"
+                    aria-label="5 из 5"
+                  >
                     {Array.from({ length: 5 }).map((_, s) => (
                       <svg
                         key={s}
@@ -350,7 +399,7 @@ export default function Home() {
       </section>
 
       {/* promo */}
-      <section className="relative isolate overflow-hidden bg-ink text-paper">
+      <section className="vignette relative isolate overflow-hidden bg-ink text-paper">
         <Image
           src="/img/brand-gclass.jpg"
           alt="Mercedes G-Class в боксе Meat Wash"
@@ -365,13 +414,12 @@ export default function Home() {
             <p className="eyebrow text-brand-bright" data-reveal>
               Новым клиентам
             </p>
-            <h2
-              className="display-bold mt-5 text-[clamp(2rem,1.3rem+2.8vw,3.9rem)]"
-              data-reveal
-              style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
-            >
-              {PROMO.title}
-            </h2>
+            <SplitText
+              as="h2"
+              text={PROMO.title}
+              className="display-bold mt-5 block max-w-[15ch] text-[clamp(2rem,1.3rem+2.8vw,3.9rem)]"
+              stagger={0.012}
+            />
             <p
               className="lead mt-6 max-w-[44ch] text-paper/75"
               data-reveal
@@ -394,7 +442,12 @@ export default function Home() {
                 {PROMO.was}
               </span>
             </div>
-            <BookButton variant="ghost" size="lg" service="Кварцевое покрытие в подарок">
+            <BookButton
+              variant="ghost"
+              size="lg"
+              magnetic
+              service="Кварцевое покрытие в подарок"
+            >
               Забрать подарок
             </BookButton>
           </div>
@@ -405,45 +458,64 @@ export default function Home() {
       <section className="bg-paper py-16 md:py-20">
         <div className="shell">
           <div className="grid gap-px bg-line sm:grid-cols-3">
-          {[
-            { href: "/programmy", t: "Программы мойки", d: "Сравнить пять программ и цены по типу кузова" },
-            { href: "/uslugi", t: "Услуги и цены", d: "Полный прайс: 45 позиций по восьми направлениям" },
-            { href: "/adresa", t: "Адреса и время работы", d: "Мясницкая и Технопарк — как доехать и припарковаться" },
-          ].map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="group bg-paper p-8 transition-colors duration-500 hover:bg-bone lg:p-10"
-            >
-              <div
-                className="flex items-start justify-between gap-6"
-                data-reveal
-                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+            {[
+              {
+                href: "/programmy",
+                t: "Программы мойки",
+                d: "Сравнить пять программ и цены по типу кузова",
+              },
+              {
+                href: "/uslugi",
+                t: "Услуги и цены",
+                d: "Полный прайс: 45 позиций по восьми направлениям",
+              },
+              {
+                href: "/adresa",
+                t: "Адреса и время работы",
+                d: "Мясницкая и Технопарк — как доехать и припарковаться",
+              },
+            ].map((l, i) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="group relative overflow-hidden bg-paper p-8 lg:p-10"
               >
-                <h3 className="text-[20px] font-bold tracking-[-0.03em]">
-                  {l.t}
-                </h3>
-                <svg
-                  viewBox="0 0 24 24"
-                  className="mt-1 h-4 w-4 shrink-0 text-brand transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
-                  fill="none"
-                  aria-hidden
+                <span className="absolute inset-0 origin-bottom scale-y-0 bg-bone transition-transform duration-[650ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
+                <div
+                  className="relative flex items-start justify-between gap-6"
+                  data-reveal
+                  style={
+                    { "--reveal-delay": `${i * 80}ms` } as React.CSSProperties
+                  }
                 >
-                  <path
-                    d="M4 12h15m0 0-6-6m6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                  />
-                </svg>
-              </div>
-              <p
-                className="mt-4 max-w-[32ch] text-[15px] leading-relaxed text-muted"
-                data-reveal
-                style={{ "--reveal-delay": `${i * 80 + 60}ms` } as React.CSSProperties}
-              >
-                {l.d}
-              </p>
-            </Link>
+                  <h3 className="text-[20px] font-bold tracking-[-0.03em]">
+                    {l.t}
+                  </h3>
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="mt-1 h-4 w-4 shrink-0 text-brand transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
+                    fill="none"
+                    aria-hidden
+                  >
+                    <path
+                      d="M4 12h15m0 0-6-6m6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                    />
+                  </svg>
+                </div>
+                <p
+                  className="relative mt-4 max-w-[32ch] text-[15px] leading-relaxed text-muted"
+                  data-reveal
+                  style={
+                    {
+                      "--reveal-delay": `${i * 80 + 60}ms`,
+                    } as React.CSSProperties
+                  }
+                >
+                  {l.d}
+                </p>
+              </Link>
             ))}
           </div>
         </div>

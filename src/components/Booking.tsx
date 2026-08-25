@@ -11,6 +11,7 @@ import {
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { BRANCHES, SITE } from "@/data/site";
+import { lockScroll } from "./SmoothScroll";
 
 type Ctx = { open: (service?: string) => void; close: () => void };
 const BookingCtx = createContext<Ctx>({ open: () => {}, close: () => {} });
@@ -32,9 +33,11 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
     document.documentElement.classList.add("no-scroll");
+    lockScroll(true);
     return () => {
       document.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("no-scroll");
+      lockScroll(false);
     };
   }, [isOpen, close]);
 

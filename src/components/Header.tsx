@@ -8,6 +8,7 @@ import { BRANCHES, NAV, SITE } from "@/data/site";
 import { Wordmark } from "./Logo";
 import { useBooking } from "./Booking";
 import { ArrowIcon } from "./ui";
+import { lockScroll } from "./SmoothScroll";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +39,11 @@ export default function Header() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("no-scroll", menu);
-    return () => document.documentElement.classList.remove("no-scroll");
+    lockScroll(menu);
+    return () => {
+      document.documentElement.classList.remove("no-scroll");
+      lockScroll(false);
+    };
   }, [menu]);
 
   const solid = scrolled || menu;

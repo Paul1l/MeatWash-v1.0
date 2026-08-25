@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import WaterCanvas from "./WaterCanvas";
+import SplitText from "./SplitText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -28,28 +30,29 @@ export function HomeHero({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.07]);
 
   return (
     <div
       ref={ref}
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-paper"
+      className="vignette relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-paper"
     >
       <motion.div style={{ y, scale }} className="absolute inset-0 -z-10">
-        <div className="kenburns absolute inset-0">
-          <Image
-            src={image}
-            alt={alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          priority
+          sizes="100vw"
+          className="scale-[1.04] object-cover"
+        />
+        <div className="absolute inset-0">
+          <WaterCanvas src={image} className="absolute inset-0" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/78 via-transparent to-transparent" />
       </motion.div>
 
       <motion.div
@@ -59,24 +62,24 @@ export function HomeHero({
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.8, ease: EASE }}
-          className="eyebrow text-brand-bright"
+          transition={{ delay: 0.3, duration: 0.8, ease: EASE }}
+          className="eyebrow flex items-center gap-3.5 text-paper/85"
         >
+          <span className="h-px w-9 bg-brand-bright" />
           {eyebrow}
         </motion.p>
 
         <h1 className="display mt-6 max-w-[19ch] text-[clamp(2.9rem,1.6rem+6.4vw,8rem)]">
           {lines.map((line, i) => (
-            <span key={line} className="block overflow-hidden pb-[0.06em]">
-              <motion.span
-                className="block"
-                initial={{ y: "108%" }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.45 + i * 0.09, duration: 1.05, ease: EASE }}
-              >
-                {line}
-              </motion.span>
-            </span>
+            <SplitText
+              key={line}
+              text={line}
+              trigger="mount"
+              delay={0.42 + i * 0.16}
+              stagger={0.022}
+              duration={1.05}
+              className="block"
+            />
           ))}
         </h1>
 
@@ -84,7 +87,7 @@ export function HomeHero({
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75, duration: 0.8, ease: EASE }}
+            transition={{ delay: 0.95, duration: 0.85, ease: EASE }}
             className="lead mt-8 max-w-[46ch] text-paper/80"
           >
             {sub}
@@ -95,8 +98,8 @@ export function HomeHero({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.88, duration: 0.8, ease: EASE }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            transition={{ delay: 1.08, duration: 0.85, ease: EASE }}
+            className="mt-10 flex flex-wrap items-center gap-6"
           >
             {actions}
           </motion.div>
@@ -106,7 +109,7 @@ export function HomeHero({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.15, duration: 0.9 }}
+            transition={{ delay: 1.35, duration: 0.9 }}
             className="mt-14 border-t border-paper/15 pt-7"
           >
             {meta}
@@ -118,7 +121,7 @@ export function HomeHero({
         style={{ opacity }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
         className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center"
       >
         <span className="flex h-10 w-6 items-start justify-center rounded-full border border-paper/30 p-1.5">
@@ -157,12 +160,12 @@ export function PageHero({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
 
   return (
     <div
       ref={ref}
-      className={`relative isolate flex overflow-hidden bg-ink text-paper ${
+      className={`vignette relative isolate flex overflow-hidden bg-ink text-paper ${
         compact ? "min-h-[62svh]" : "min-h-[78svh]"
       } ${align === "center" ? "items-center justify-center text-center" : "items-end"}`}
     >
@@ -175,6 +178,9 @@ export function PageHero({
           sizes="100vw"
           className="scale-105 object-cover"
         />
+        <div className="absolute inset-0">
+          <WaterCanvas src={image} drops={0.65} className="absolute inset-0" />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/35" />
       </motion.div>
 
@@ -186,34 +192,31 @@ export function PageHero({
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.7, ease: EASE }}
-          className="eyebrow text-brand-bright"
+          transition={{ delay: 0.22, duration: 0.7, ease: EASE }}
+          className={`eyebrow flex items-center gap-3.5 text-paper/85 ${
+            align === "center" ? "justify-center" : ""
+          }`}
         >
+          <span className="h-px w-9 bg-brand-bright" />
           {eyebrow}
         </motion.p>
 
-        <h1
+        <SplitText
+          as="h1"
+          text={title}
+          trigger="mount"
+          delay={0.32}
+          stagger={0.02}
           className={`display-bold mt-5 text-[clamp(2.4rem,1.5rem+4.4vw,5.5rem)] ${
             align === "center" ? "max-w-[18ch]" : "max-w-[16ch]"
           }`}
-        >
-          <span className="block overflow-hidden pb-[0.06em]">
-            <motion.span
-              className="block"
-              initial={{ y: "108%" }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.35, duration: 1, ease: EASE }}
-            >
-              {title}
-            </motion.span>
-          </span>
-        </h1>
+        />
 
         {sub && (
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.8, ease: EASE }}
+            transition={{ delay: 0.62, duration: 0.8, ease: EASE }}
             className="lead mt-7 max-w-[52ch] text-paper/80"
           >
             {sub}
@@ -224,8 +227,8 @@ export function PageHero({
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8, ease: EASE }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            transition={{ delay: 0.76, duration: 0.8, ease: EASE }}
+            className="mt-9 flex flex-wrap items-center gap-6"
           >
             {actions}
           </motion.div>
