@@ -1,26 +1,236 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #0b0b0c;
+  --color-ink-2: #141417;
+  --color-ink-3: #1e1e22;
+  --color-paper: #ffffff;
+  --color-bone: #f5f3f0;
+  --color-mist: #e9e6e1;
+  --color-line: #dcd8d2;
+  --color-line-dark: #2a2a2f;
+  --color-brand: #ce0e2d;
+  --color-brand-bright: #e8163a;
+  --color-brand-deep: #8e0a1f;
+  --color-muted: #6b6a68;
+  --color-muted-dark: #9a9793;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --header-h: 72px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* ---------- typography ---------- */
+
+.display {
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+.display-bold {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.lead {
+  font-size: clamp(1.0625rem, 0.95rem + 0.55vw, 1.375rem);
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  text-wrap: pretty;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- layout ---------- */
+
+.shell {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 1rem + 2.2vw, 4.5rem);
+  max-width: 1680px;
+}
+
+.hairline {
+  border-top: 1px solid var(--color-line);
+}
+
+.hairline-dark {
+  border-top: 1px solid var(--color-line-dark);
+}
+
+/* ---------- reveal ---------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The clip lives on the child: a fully clipped element reports an empty
+   intersection rect, which would deadlock the IntersectionObserver. */
+[data-reveal-mask] > * {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.15s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal-mask="in"] > * {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal],
+  [data-reveal-mask] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .kenburns {
+    animation: none !important;
+  }
+}
+
+/* ---------- media ---------- */
+
+.kenburns {
+  animation: kenburns 22s var(--ease-in-out-quart) infinite alternate;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.16) translate3d(-1.5%, -1.5%, 0);
+  }
+}
+
+.img-zoom {
+  transition: transform 1.1s var(--ease-out-expo);
+}
+
+.group:hover .img-zoom,
+.peer:hover ~ * .img-zoom {
+  transform: scale(1.055);
+}
+
+/* ---------- rails ---------- */
+
+.rail {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* ---------- misc ---------- */
+
+.underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.55s var(--ease-out-expo);
+}
+
+.group:hover .underline-grow,
+a:hover > .underline-grow {
+  background-size: 100% 1px;
+}
+
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.no-scroll {
+  overflow: hidden;
 }
