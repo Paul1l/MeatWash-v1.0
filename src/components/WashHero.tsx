@@ -23,8 +23,8 @@ const STAGES = [
     caption: "Зимняя соль в порах лака, налёт на порогах и дисках.",
     // fade window and the camera move that plays under it
     at: [0.0, 0.3] as const,
-    zoom: [1.18, 1.1] as const,
-    pan: [-2.5, -1.2] as const,
+    zoom: [1.03, 1.02] as const,
+    pan: [-0.8, -0.4] as const,
   },
   {
     src: "/img/wash-foam.jpg",
@@ -32,8 +32,8 @@ const STAGES = [
     label: "Активная пена",
     caption: "Пена поднимает грязь с лака, не растирая её по кузову.",
     at: [0.22, 0.55] as const,
-    zoom: [1.1, 1.05] as const,
-    pan: [-1.2, 1.4] as const,
+    zoom: [1.02, 1.02] as const,
+    pan: [-0.4, 0.3] as const,
   },
   {
     src: "/img/wash-rinse.jpg",
@@ -41,8 +41,8 @@ const STAGES = [
     label: "Смыв",
     caption: "Вода уходит листом — значит, поверхность действительно чистая.",
     at: [0.47, 0.8] as const,
-    zoom: [1.05, 1.02] as const,
-    pan: [1.4, 2.2] as const,
+    zoom: [1.02, 1.03] as const,
+    pan: [0.3, 0.7] as const,
   },
   {
     src: "/img/wash-clean.jpg",
@@ -50,19 +50,17 @@ const STAGES = [
     label: "Как уехала",
     caption: "Глубокий цвет, чистые диски, стёкла без разводов.",
     at: [0.72, 1.0] as const,
-    zoom: [1.02, 1.0] as const,
-    pan: [2.2, 0] as const,
+    zoom: [1.03, 1.05] as const,
+    pan: [0.7, 0.1] as const,
   },
 ];
 
 export default function WashHero({
-  eyebrow,
   lines,
   sub,
   actions,
   meta,
 }: {
-  eyebrow: string;
   lines: string[];
   sub?: string;
   actions?: ReactNode;
@@ -102,20 +100,15 @@ export default function WashHero({
               isLast={i === STAGES.length - 1}
             />
           ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/72 via-ink/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/88 via-ink/30 to-transparent" />
         </div>
 
         <motion.div
           style={{ opacity: copyOpacity, y: copyY }}
           className="shell relative w-full pb-24 pt-40 sm:pb-28 md:pb-32"
         >
-          <p className="eyebrow flex items-center gap-3.5 text-paper/85">
-            <span className="h-px w-9 bg-brand-bright" />
-            {eyebrow}
-          </p>
-
-          <h1 className="display mt-6 max-w-[19ch] text-[clamp(2.9rem,1.6rem+6.4vw,8rem)]">
+          <h1 className="display max-w-[19ch] text-[clamp(2.9rem,1.6rem+6.4vw,8rem)]">
             {lines.map((line, i) => (
               <SplitText
                 key={line}
@@ -191,7 +184,7 @@ function Stage({
         fill
         priority={priority}
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-[center_62%]"
       />
     </motion.div>
   );
