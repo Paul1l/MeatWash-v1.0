@@ -46,7 +46,7 @@ export default function Footer() {
         <div className="grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4 lg:py-20">
           <div>
             <Link href="/" className="inline-block text-[26px]">
-              <Wordmark stacked />
+              <Wordmark />
             </Link>
             <p className="mt-6 max-w-[30ch] text-[14px] leading-relaxed text-muted-dark">
               Сеть детейлинг-моек в Москве. Ручная мойка, химчистка, полировка,

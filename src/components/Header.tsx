@@ -64,7 +64,7 @@ export default function Header() {
           <Link
             href="/"
             aria-label="Meat Wash — на главную"
-            className={`text-[22px] transition-colors duration-300 sm:text-[26px] ${
+            className={`text-[17px] transition-colors duration-300 sm:text-[19px] ${
               solid ? "text-ink" : "text-paper"
             }`}
           >

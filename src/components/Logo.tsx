@@ -25,10 +25,10 @@ const DROP_W =
 export const VIEWBOX = {
   full: "276 272 569 593",
   m: "367 272 478 276",
-  w: "276 591 478 274",
+  w: "276 590 478 276",
 } as const;
 
-export const GLYPH_RATIO = { m: 478 / 276, w: 478 / 274 };
+export const GLYPH_RATIO = 478 / 276;
 
 type SvgProps = { className?: string; style?: React.CSSProperties };
 
@@ -102,53 +102,56 @@ export function GlyphW({ className = "", style }: SvgProps) {
 }
 
 /**
- * "meat wash" with the monogram supplying both initials.
+ * "meat wash", set on two lines with the monogram supplying both initials —
+ * the arrangement the mark itself is drawn in.
  *
- * `stacked` sets the two lines under each other — the arrangement the mark
- * was drawn for, since the halves then sit exactly as they do in the logo.
- * The inline form keeps the same substitution on a single line.
+ * Each glyph is an inline-block sitting on the baseline, sized to the font's
+ * x-height, so it lines up with the lowercase letters exactly the way a real
+ * "m" and "w" would. A hair of overshoot compensates for the round caps, the
+ * same way a typeface overshoots its round letters.
  */
 export function Wordmark({
   className = "",
-  stacked = false,
+  inline = false,
 }: {
   className?: string;
-  stacked?: boolean;
+  inline?: boolean;
 }) {
-  const glyph = "block w-auto shrink-0 self-end";
-  // The glyphs stand on the baseline at cap height for "m" / "w": tuned so the
-  // capsule ends line up with the x-height of the wordmark's own type.
-  const glyphBox = { height: "0.62em" };
+  // Sits on the baseline at x-height, with a hair of overshoot for the round
+  // caps and a sliver of sidebearing so it breathes like a real letter.
+  const glyph =
+    "inline-block w-auto align-baseline translate-y-[0.012em] h-[0.55em] mr-[0.05em]";
 
-  if (stacked) {
+  const meat = (
+    <span className="whitespace-nowrap">
+      <GlyphM className={glyph} />
+      eat
+    </span>
+  );
+  const wash = (
+    <span className="whitespace-nowrap">
+      <GlyphW className={glyph} />
+      ash
+    </span>
+  );
+
+  if (inline) {
     return (
       <span
-        className={`inline-flex flex-col font-extrabold lowercase leading-[0.9] tracking-[-0.05em] ${className}`}
+        className={`inline-flex items-baseline gap-[0.3em] font-extrabold lowercase leading-none tracking-[-0.045em] ${className}`}
       >
-        <span className="flex items-end gap-[0.1em]">
-          <GlyphM className={glyph} style={glyphBox} />
-          <span className="leading-none">eat</span>
-        </span>
-        <span className="flex items-end gap-[0.1em]">
-          <GlyphW className={glyph} style={glyphBox} />
-          <span className="leading-none">ash</span>
-        </span>
+        {meat}
+        {wash}
       </span>
     );
   }
 
   return (
     <span
-      className={`inline-flex items-end gap-[0.34em] font-extrabold lowercase leading-none tracking-[-0.05em] ${className}`}
+      className={`inline-flex flex-col items-start font-extrabold lowercase leading-[1.02] tracking-[-0.045em] ${className}`}
     >
-      <span className="flex items-end gap-[0.1em]">
-        <GlyphM className={glyph} style={glyphBox} />
-        <span className="leading-none">eat</span>
-      </span>
-      <span className="flex items-end gap-[0.1em]">
-        <GlyphW className={glyph} style={glyphBox} />
-        <span className="leading-none">ash</span>
-      </span>
+      {meat}
+      {wash}
     </span>
   );
 }
