@@ -9,7 +9,7 @@ type Variant = "solid" | "outline" | "outline-light" | "ghost" | "text";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group inline-flex items-center justify-center gap-3 font-semibold tracking-[-0.01em] transition-colors duration-300";
+  "group inline-flex items-center justify-center gap-3 rounded-full font-semibold tracking-[-0.01em] transition-colors duration-300";
 
 const variants: Record<Variant, string> = {
   solid: "bg-brand text-paper hover:bg-ink",

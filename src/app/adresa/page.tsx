@@ -32,7 +32,7 @@ export default function AdresaPage() {
           <div className="shell py-20 md:py-28">
             <div className="grid items-stretch gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
               <div
-                className={`relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[560px] ${i % 2 === 1 ? "md:order-2" : ""}`}
+                className={`relative aspect-[4/3] overflow-hidden rounded-[32px] md:aspect-auto md:min-h-[560px] ${i % 2 === 1 ? "md:order-2" : ""}`}
                 data-reveal-mask
               >
                 <Image
@@ -65,12 +65,11 @@ export default function AdresaPage() {
                 </p>
 
                 <dl
-                  className="mt-10 grid gap-px border-t border-line bg-line"
+                  className="mt-10 grid divide-y divide-line rounded-[24px] border border-line px-6"
                   data-reveal
                   style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
                 >
                   <Row
-                    tone={i % 2 === 1 ? "bone" : "paper"}
                     label="Адрес"
                     value={
                       <>
@@ -84,7 +83,6 @@ export default function AdresaPage() {
                     }
                   />
                   <Row
-                    tone={i % 2 === 1 ? "bone" : "paper"}
                     label="Время работы"
                     value={
                       <span className="flex flex-col gap-1">
@@ -100,7 +98,6 @@ export default function AdresaPage() {
                     }
                   />
                   <Row
-                    tone={i % 2 === 1 ? "bone" : "paper"}
                     label="Метро"
                     value={
                       <span className="flex flex-col gap-1">
@@ -114,7 +111,6 @@ export default function AdresaPage() {
                     }
                   />
                   <Row
-                    tone={i % 2 === 1 ? "bone" : "paper"}
                     label="Телефон"
                     value={
                       <a
@@ -126,7 +122,6 @@ export default function AdresaPage() {
                     }
                   />
                   <Row
-                    tone={i % 2 === 1 ? "bone" : "paper"}
                     label="Рейтинг"
                     value={
                       <>
@@ -147,7 +142,7 @@ export default function AdresaPage() {
                   {b.features.map((f) => (
                     <li
                       key={f}
-                      className="border border-line px-3.5 py-2 text-[13px] text-muted"
+                      className="rounded-full border border-line px-3.5 py-2 text-[13px] text-muted"
                     >
                       {f}
                     </li>
@@ -168,7 +163,7 @@ export default function AdresaPage() {
             </div>
 
             <div
-              className="mt-14 aspect-[16/10] w-full overflow-hidden border border-line bg-mist sm:aspect-[21/9]"
+              className="mt-14 aspect-[16/10] w-full overflow-hidden rounded-[32px] border border-line bg-mist sm:aspect-[21/9]"
               data-reveal
             >
               <iframe
@@ -198,7 +193,7 @@ export default function AdresaPage() {
             </h2>
           </div>
           <div
-            className="grid gap-px border-t border-line-dark bg-line-dark"
+            className="grid gap-3"
             data-reveal
             style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
           >
@@ -216,7 +211,7 @@ export default function AdresaPage() {
                 d: "Карта, СБП, QR, наличные, безнал и рассрочка. На Мясницкой можно оплатить, не выходя из машины.",
               },
             ].map((x) => (
-              <div key={x.t} className="bg-ink py-7">
+              <div key={x.t} className="rounded-[24px] border border-line-dark bg-ink p-7">
                 <h3 className="text-[17px] font-bold tracking-[-0.02em]">
                   {x.t}
                 </h3>
@@ -235,18 +230,12 @@ export default function AdresaPage() {
 function Row({
   label,
   value,
-  tone,
 }: {
   label: string;
   value: React.ReactNode;
-  tone: "paper" | "bone";
 }) {
   return (
-    <div
-      className={`grid gap-1 py-5 sm:grid-cols-[150px_1fr] sm:gap-6 ${
-        tone === "bone" ? "bg-bone" : "bg-paper"
-      }`}
-    >
+    <div className="grid gap-1 py-5 sm:grid-cols-[150px_1fr] sm:gap-6">
       <dt className="eyebrow pt-1 text-muted">{label}</dt>
       <dd className="text-[16px] leading-relaxed">{value}</dd>
     </div>

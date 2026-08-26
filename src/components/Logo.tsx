@@ -138,7 +138,7 @@ export function Wordmark({
   if (inline) {
     return (
       <span
-        className={`inline-flex items-baseline gap-[0.3em] font-extrabold lowercase leading-none tracking-[-0.045em] ${className}`}
+        className={`wordmark inline-flex items-baseline gap-[0.3em] font-extrabold lowercase leading-none tracking-[-0.05em] ${className}`}
       >
         {meat}
         {wash}
@@ -148,7 +148,7 @@ export function Wordmark({
 
   return (
     <span
-      className={`inline-flex flex-col items-start font-extrabold lowercase leading-[1.02] tracking-[-0.045em] ${className}`}
+      className={`wordmark inline-flex flex-col items-start font-extrabold lowercase leading-[1.05] tracking-[-0.05em] ${className}`}
     >
       {meat}
       {wash}

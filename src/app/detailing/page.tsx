@@ -109,11 +109,11 @@ export default function DetailingPage() {
             text="Каждое можно взять отдельно или собрать в один заезд — так дешевле и быстрее, чем приезжать четыре раза."
           />
 
-          <div className="mt-16 grid gap-px border-t border-line-dark bg-line-dark md:grid-cols-2">
+          <div className="mt-16 grid gap-3 md:grid-cols-2">
             {PILLARS.map((p, i) => (
               <article
                 key={p.n}
-                className="group bg-ink p-8 transition-colors duration-500 hover:bg-ink-2 lg:p-12"
+                className="group rounded-[32px] border border-line-dark bg-ink p-8 transition-colors duration-500 hover:bg-ink-2 lg:p-12"
               >
                 <div
                   data-reveal
@@ -163,7 +163,7 @@ export default function DetailingPage() {
               <figure
                 key={g.src}
                 data-cursor="view"
-                className="group relative aspect-[3/4] w-[72vw] max-w-[380px] overflow-hidden bg-mist sm:w-[40vw] lg:w-[24vw]"
+                className="group relative aspect-[3/4] w-[72vw] max-w-[380px] overflow-hidden rounded-[28px] bg-mist sm:w-[40vw] lg:w-[24vw]"
                 data-reveal
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Onest, JetBrains_Mono } from "next/font/google";
+import { Unbounded, Onest, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { BRANCHES, SITE } from "@/data/site";
 import { BookingProvider } from "@/components/Booking";
@@ -10,8 +10,17 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import PageTransition from "@/components/PageTransition";
 
-// Onest is a geometric grotesque with first-class Cyrillic — its round
-// bowls and flat terminals sit naturally next to the monogram's capsules.
+// Unbounded carries the display voice: its wide, fully geometric bowls are
+// the closest type gets to the monogram's capsules and droplets, so the
+// wordmark reads as one object instead of a logo pasted onto a font.
+const unbounded = Unbounded({
+  variable: "--font-display-face",
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+// Onest carries running text — Unbounded is too wide to read in paragraphs.
 const onest = Onest({
   variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
@@ -101,7 +110,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${onest.variable} ${mono.variable} h-full`}>
+    <html lang="ru" className={`${unbounded.variable} ${onest.variable} ${mono.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <script
           type="application/ld+json"

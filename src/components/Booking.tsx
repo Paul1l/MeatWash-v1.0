@@ -78,7 +78,7 @@ function BookingModal({
         onClick={onClose}
       />
       <motion.div
-        className="relative flex max-h-[92svh] w-full max-w-[820px] flex-col bg-paper sm:m-6 sm:max-h-[86svh]"
+        className="relative flex max-h-[92svh] w-full max-w-[820px] flex-col overflow-hidden rounded-t-[32px] bg-paper sm:m-6 sm:max-h-[86svh] sm:rounded-[32px]"
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 24, opacity: 0 }}
@@ -100,7 +100,7 @@ function BookingModal({
             type="button"
             onClick={onClose}
             aria-label="Закрыть"
-            className="-mr-2 -mt-2 grid h-11 w-11 shrink-0 place-items-center text-muted transition-colors hover:text-ink"
+            className="-mr-2 -mt-2 grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted transition-colors hover:text-ink"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
               <path
@@ -112,7 +112,7 @@ function BookingModal({
           </button>
         </div>
 
-        <div className="grid min-h-0 flex-1 gap-px overflow-y-auto bg-line sm:grid-cols-2">
+        <div className="grid min-h-0 flex-1 divide-y divide-line overflow-y-auto sm:grid-cols-2 sm:divide-x sm:divide-y-0">
           {BRANCHES.map((b) => (
             <div key={b.id} className="bg-paper p-6 sm:p-10">
               <p className="eyebrow text-muted">{b.kind}</p>
@@ -127,14 +127,14 @@ function BookingModal({
                   href={SITE.booking}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group inline-flex items-center justify-between gap-4 bg-ink px-5 py-4 text-[15px] font-semibold text-paper transition-colors hover:bg-brand"
+                  className="group inline-flex items-center justify-between gap-4 rounded-full bg-ink px-5 py-4 text-[15px] font-semibold text-paper transition-colors hover:bg-brand"
                 >
                   Записаться онлайн
                   <Arrow />
                 </a>
                 <a
                   href={`tel:${b.phoneHref}`}
-                  className="group inline-flex items-center justify-between gap-4 border border-line px-5 py-4 text-[15px] font-semibold transition-colors hover:border-ink"
+                  className="group inline-flex items-center justify-between gap-4 rounded-full border border-line px-5 py-4 text-[15px] font-semibold transition-colors hover:border-ink"
                 >
                   {b.phone}
                   <Arrow />

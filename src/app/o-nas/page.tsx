@@ -81,11 +81,11 @@ export default function AboutPage() {
             title="Четыре вещи, на которых всё держится"
           />
 
-          <div className="mt-16 grid gap-px border-t border-line-dark bg-line-dark md:grid-cols-2">
+          <div className="mt-16 grid gap-3 md:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
               <article
                 key={p.n}
-                className="bg-ink py-10 md:px-10 md:py-12"
+                className="rounded-[32px] border border-line-dark bg-ink p-8 md:p-10"
               >
                 <div
                   data-reveal
@@ -116,7 +116,7 @@ export default function AboutPage() {
             text="Данные из карточек обеих организаций на Яндекс Картах."
           />
 
-          <dl className="mt-14 grid gap-px border-t border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { v: <Counter to={5} decimals={1} />, l: "Средний рейтинг обеих точек" },
               { v: <Counter to={292} />, l: "Оценок клиентов" },
@@ -125,7 +125,7 @@ export default function AboutPage() {
             ].map((s, i) => (
               <div
                 key={i}
-                className="bg-paper py-9 sm:pr-8"
+                className="rounded-[28px] border border-line bg-paper p-7"
               >
                 <div
                   data-reveal
@@ -172,7 +172,7 @@ export default function AboutPage() {
             {FEATURES.map((f, i) => (
               <li
                 key={f}
-                className="border border-line bg-paper px-4 py-2.5 text-[14px] font-medium"
+                className="rounded-full border border-line bg-paper px-4 py-2.5 text-[14px] font-medium"
                 data-reveal
                 style={
                   { "--reveal-delay": `${Math.min(i, 12) * 40}ms` } as React.CSSProperties

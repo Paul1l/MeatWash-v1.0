@@ -104,7 +104,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => open()}
-              className="group hidden items-center gap-2.5 bg-brand px-5 py-3 text-[14px] font-semibold text-paper transition-colors duration-300 hover:bg-ink sm:inline-flex"
+              className="group hidden items-center gap-2.5 rounded-full bg-brand px-5 py-3 text-[14px] font-semibold text-paper transition-colors duration-300 hover:bg-ink sm:inline-flex"
             >
               Записаться
               <ArrowIcon className="h-3.5 w-3.5" />
@@ -184,7 +184,7 @@ export default function Header() {
                     setMenu(false);
                     open();
                   }}
-                  className="group inline-flex items-center justify-between bg-brand px-6 py-5 text-[16px] font-semibold text-paper"
+                  className="group inline-flex items-center justify-between rounded-full bg-brand px-6 py-5 text-[16px] font-semibold text-paper"
                 >
                   Записаться онлайн
                   <ArrowIcon className="h-4 w-4" />
@@ -194,7 +194,7 @@ export default function Header() {
                     <a
                       key={b.id}
                       href={`tel:${b.phoneHref}`}
-                      className="border border-line px-5 py-4"
+                      className="rounded-2xl border border-line px-5 py-4"
                     >
                       <span className="eyebrow text-muted">{b.short}</span>
                       <span className="mt-2 block text-[15px] font-semibold tabular-nums">

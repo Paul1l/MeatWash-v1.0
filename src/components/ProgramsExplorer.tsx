@@ -33,7 +33,7 @@ export default function ProgramsExplorer() {
                   {type === c.id && (
                     <motion.span
                       layoutId="car-type-pill"
-                      className="absolute inset-0 -z-10 bg-ink"
+                      className="absolute inset-0 -z-10 rounded-full bg-ink"
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                     />
                   )}
@@ -157,7 +157,7 @@ export default function ProgramsExplorer() {
           >
             <div className="shell grid items-center gap-12 py-20 md:grid-cols-2 md:gap-20 md:py-28">
               <div
-                className={`relative aspect-[4/5] overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}
+                className={`relative aspect-[4/5] overflow-hidden rounded-[32px] ${i % 2 === 1 ? "md:order-2" : ""}`}
                 data-reveal-mask
               >
                 <Image
@@ -199,14 +199,14 @@ export default function ProgramsExplorer() {
                 </p>
 
                 <ul
-                  className={`mt-9 grid gap-px border-t ${dark ? "border-line-dark bg-line-dark" : "border-line bg-line"}`}
+                  className={`mt-9 grid divide-y rounded-[24px] border px-6 ${dark ? "divide-line-dark border-line-dark" : "divide-line border-line"}`}
                   data-reveal
                   style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
                 >
                   {p.includes.map((inc) => (
                     <li
                       key={inc}
-                      className={`flex items-start gap-3 py-3.5 text-[15px] ${dark ? "bg-ink" : "bg-bone"}`}
+                      className="flex items-start gap-3 py-3.5 text-[15px]"
                     >
                       <svg
                         viewBox="0 0 24 24"

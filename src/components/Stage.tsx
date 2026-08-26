@@ -46,7 +46,7 @@ export default function Stage({
       <div className="shell grid items-center gap-12 py-20 md:grid-cols-2 md:gap-20 md:py-28 lg:gap-28">
         <div
           ref={ref}
-          className={`relative overflow-hidden ${ratio} ${flip ? "md:order-2" : ""}`}
+          className={`relative overflow-hidden rounded-[32px] ${ratio} ${flip ? "md:order-2" : ""}`}
           data-reveal-mask
         >
           <motion.div style={{ y }} className="absolute -inset-y-[8%] inset-x-0">

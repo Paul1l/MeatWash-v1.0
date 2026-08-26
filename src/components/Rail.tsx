@@ -54,7 +54,7 @@ export default function Rail({
     el.scrollBy({ left: dir * w, behavior: "smooth" });
   };
 
-  const btn = `grid h-12 w-12 place-items-center border transition-all duration-300 disabled:opacity-25 ${
+  const btn = `grid h-12 w-12 place-items-center rounded-full border transition-all duration-300 disabled:opacity-25 ${
     dark
       ? "border-paper/25 text-paper hover:border-paper hover:bg-paper hover:text-ink"
       : "border-line text-ink hover:border-ink hover:bg-ink hover:text-paper"

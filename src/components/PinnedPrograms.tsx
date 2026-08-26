@@ -81,7 +81,7 @@ function PinnedTrack() {
             <Link
               key={p.slug}
               href={`/programmy#${p.slug}`}
-              className="group relative flex h-[62vh] w-[30vw] max-w-[460px] shrink-0 flex-col justify-end overflow-hidden bg-ink"
+              className="group relative flex h-[62vh] w-[30vw] max-w-[460px] shrink-0 flex-col justify-end overflow-hidden rounded-[32px] bg-ink"
             >
               <Image
                 src={p.image}
@@ -93,7 +93,7 @@ function PinnedTrack() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent" />
 
               <div className="absolute left-7 top-7 flex items-center gap-3">
-                <span className="bg-paper px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">
+                <span className="rounded-full bg-paper px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">
                   {p.kicker}
                 </span>
                 <span className="text-[12px] font-semibold text-paper/70">

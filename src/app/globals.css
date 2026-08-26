@@ -16,6 +16,7 @@
   --color-muted-dark: #9a9793;
 
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), var(--font-onest), sans-serif;
   --font-mono:
     var(--font-mono-face), ui-monospace, "SF Mono", SFMono-Regular, monospace;
 
@@ -56,6 +57,16 @@ body {
 }
 
 /* ---------- typography ---------- */
+
+/* Display voice — the wordmark and every heading. */
+.display,
+.display-bold,
+.wordmark,
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
 
 .display {
   font-weight: 300;

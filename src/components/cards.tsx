@@ -21,7 +21,7 @@ export function ProgramCard({
       data-reveal
       style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-mist">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] bg-mist">
         <Image
           src={program.image}
           alt={program.name}
@@ -30,7 +30,7 @@ export function ProgramCard({
           className="img-zoom object-cover"
         />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/70 to-transparent" />
-        <span className="absolute left-5 top-5 bg-paper/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">
+        <span className="absolute left-5 top-5 rounded-full bg-paper/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-ink">
           {program.kicker}
         </span>
         <span className="absolute bottom-5 left-5 text-[13px] font-medium text-paper/90">
@@ -84,7 +84,7 @@ export function ServiceCard({
   return (
     <Link
       href={`/uslugi#${group.slug}`}
-      className="group relative block overflow-hidden bg-ink text-paper"
+      className="group relative block overflow-hidden rounded-[28px] bg-ink text-paper"
       data-reveal
       style={{ "--reveal-delay": `${(index % 4) * 80}ms` } as React.CSSProperties}
     >

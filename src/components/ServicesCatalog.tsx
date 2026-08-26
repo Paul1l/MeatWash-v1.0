@@ -54,7 +54,7 @@ export default function ServicesCatalog() {
                   {active === g.slug && !query && (
                     <motion.span
                       layoutId="svc-pill"
-                      className="absolute inset-0 -z-10 bg-ink"
+                      className="absolute inset-0 -z-10 rounded-full bg-ink"
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                     />
                   )}
@@ -67,7 +67,7 @@ export default function ServicesCatalog() {
           <div className="relative shrink-0 lg:w-[230px]">
             <svg
               viewBox="0 0 24 24"
-              className="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
               fill="none"
               aria-hidden
             >
@@ -80,7 +80,7 @@ export default function ServicesCatalog() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Найти услугу"
               aria-label="Поиск по услугам"
-              className="w-full border-b border-line bg-transparent py-2 pl-7 text-[15px] outline-none transition-colors placeholder:text-muted focus:border-ink lg:py-2.5"
+              className="w-full rounded-full border border-line bg-transparent py-2 pl-9 pr-4 text-[15px] outline-none transition-colors placeholder:text-muted focus:border-ink lg:py-2.5"
             />
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function ServicesCatalog() {
           <div className="shell grid gap-12 py-16 md:grid-cols-[0.85fr_1.15fr] md:gap-16 md:py-20 lg:gap-24">
             <div className="md:sticky md:top-[calc(var(--header-h)+110px)] md:self-start">
               <div
-                className="relative aspect-[4/3] overflow-hidden"
+                className="relative aspect-[4/3] overflow-hidden rounded-[28px]"
                 data-reveal-mask
               >
                 <Image

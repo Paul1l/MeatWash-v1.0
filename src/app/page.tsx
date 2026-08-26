@@ -144,9 +144,9 @@ export default function Home() {
             title="Четыре шага, в которых нечего усложнять"
           />
 
-          <div className="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:hidden">
+          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:hidden">
             {STEPS.map((s, i) => (
-              <div key={s.n} className="bg-bone p-8">
+              <div key={s.n} className="rounded-[28px] border border-line bg-paper p-8">
                 <div
                   data-reveal
                   style={
@@ -170,7 +170,7 @@ export default function Home() {
           <div className="mt-16 hidden lg:block">
             {STEPS.map((s, i) => (
               <StackCard key={s.n} index={i} total={STEPS.length} className="mb-7">
-                <article className="grid min-h-[54vh] grid-cols-[1.1fr_1fr] overflow-hidden border border-line bg-paper shadow-[0_-30px_70px_-30px_rgba(11,11,12,0.22)]">
+                <article className="grid min-h-[54vh] grid-cols-[1.1fr_1fr] overflow-hidden rounded-[36px] border border-line bg-paper shadow-[0_-30px_70px_-30px_rgba(11,11,12,0.22)]">
                   <div className="flex flex-col justify-between p-12 xl:p-16">
                     <div className="flex items-center gap-4">
                       <span className="font-mono text-[12px] font-medium text-brand">
@@ -251,7 +251,7 @@ export default function Home() {
             </p>
           </div>
 
-          <dl className="mt-16 grid gap-px border-t border-line-dark sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-16 grid gap-8 border-t border-line-dark pt-2 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 v: <Counter to={5} decimals={1} />,
@@ -363,7 +363,7 @@ export default function Home() {
               <figure
                 key={r.author + r.date}
                 data-cursor="drag"
-                className="flex w-[82vw] max-w-[440px] flex-col justify-between border border-line-dark p-8 transition-colors duration-500 hover:border-paper/35 sm:w-[46vw] lg:w-[30vw]"
+                className="flex w-[82vw] max-w-[440px] flex-col justify-between rounded-[28px] border border-line-dark p-8 transition-colors duration-500 hover:border-paper/35 sm:w-[46vw] lg:w-[30vw]"
                 data-reveal
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >
@@ -457,7 +457,7 @@ export default function Home() {
       {/* quick links */}
       <section className="bg-paper py-16 md:py-20">
         <div className="shell">
-          <div className="grid gap-px bg-line sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-3">
             {[
               {
                 href: "/programmy",
@@ -478,7 +478,7 @@ export default function Home() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="group relative overflow-hidden bg-paper p-8 lg:p-10"
+                className="group relative overflow-hidden rounded-[28px] border border-line bg-paper p-8 lg:p-10"
               >
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-bone transition-transform duration-[650ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
                 <div
