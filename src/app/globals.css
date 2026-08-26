@@ -15,7 +15,9 @@
   --color-muted: #6b6a68;
   --color-muted-dark: #9a9793;
 
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-mono-face), ui-monospace, "SF Mono", SFMono-Regular, monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -38,7 +40,6 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -71,10 +72,17 @@ body {
 }
 
 .eyebrow {
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+/* Prices, indices and any figure that should line up in a column. */
+.tnum,
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 .lead {
@@ -83,10 +91,6 @@ body {
   font-weight: 400;
   letter-spacing: -0.011em;
   text-wrap: pretty;
-}
-
-.tnum {
-  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- layout ---------- */

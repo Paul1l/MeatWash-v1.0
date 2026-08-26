@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Onest, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { BRANCHES, SITE } from "@/data/site";
 import { BookingProvider } from "@/components/Booking";
@@ -10,10 +10,20 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import PageTransition from "@/components/PageTransition";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+// Onest is a geometric grotesque with first-class Cyrillic — its round
+// bowls and flat terminals sit naturally next to the monogram's capsules.
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+// Technical counterpoint for labels, prices and indices.
+const mono = JetBrains_Mono({
+  variable: "--font-mono-face",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -91,7 +101,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${manrope.variable} h-full`}>
+    <html lang="ru" className={`${onest.variable} ${mono.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <script
           type="application/ld+json"

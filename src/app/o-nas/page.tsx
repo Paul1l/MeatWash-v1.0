@@ -91,7 +91,7 @@ export default function AboutPage() {
                   data-reveal
                   style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
                 >
-                <span className="text-[13px] font-bold tabular-nums text-brand-bright">
+                <span className="font-mono text-[12px] font-medium text-brand-bright">
                   {p.n}
                 </span>
                 <h3 className="mt-5 text-[clamp(1.35rem,1.1rem+1vw,1.9rem)] font-bold tracking-[-0.035em]">

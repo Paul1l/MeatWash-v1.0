@@ -172,7 +172,7 @@ export default function ProgramsExplorer() {
               <div className={i % 2 === 1 ? "md:order-1" : ""}>
                 <div className="flex items-center gap-4" data-reveal>
                   <span
-                    className={`text-[13px] font-bold tabular-nums ${dark ? "text-brand-bright" : "text-brand"}`}
+                    className={`font-mono text-[12px] font-medium ${dark ? "text-brand-bright" : "text-brand"}`}
                   >
                     {p.index}
                   </span>

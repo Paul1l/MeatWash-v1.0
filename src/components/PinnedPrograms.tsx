@@ -102,7 +102,7 @@ function PinnedTrack() {
               </div>
 
               <div className="relative p-7 text-paper">
-                <span className="text-[12px] font-bold tabular-nums text-brand-bright">
+                <span className="font-mono text-[12px] font-medium text-brand-bright">
                   {p.index}
                 </span>
                 <h3 className="mt-3 text-[clamp(1.5rem,1.1rem+1vw,2.1rem)] font-bold leading-[1.05] tracking-[-0.035em]">

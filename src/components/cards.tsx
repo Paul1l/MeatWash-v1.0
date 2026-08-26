@@ -46,7 +46,7 @@ export function ProgramCard({
             {program.name}
           </h3>
           <span
-            className={`shrink-0 text-[13px] font-semibold tabular-nums ${dark ? "text-muted-dark" : "text-muted"}`}
+            className={`shrink-0 font-mono text-[12px] ${dark ? "text-muted-dark" : "text-muted"}`}
           >
             {program.index}
           </span>

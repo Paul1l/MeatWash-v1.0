@@ -153,7 +153,7 @@ export default function Home() {
                     { "--reveal-delay": `${i * 80}ms` } as React.CSSProperties
                   }
                 >
-                  <span className="text-[13px] font-bold tabular-nums text-brand">
+                  <span className="font-mono text-[12px] font-medium text-brand">
                     {s.n}
                   </span>
                   <h3 className="mt-6 text-[22px] font-bold tracking-[-0.03em]">
@@ -173,7 +173,7 @@ export default function Home() {
                 <article className="grid min-h-[54vh] grid-cols-[1.1fr_1fr] overflow-hidden border border-line bg-paper shadow-[0_-30px_70px_-30px_rgba(11,11,12,0.22)]">
                   <div className="flex flex-col justify-between p-12 xl:p-16">
                     <div className="flex items-center gap-4">
-                      <span className="text-[13px] font-bold tabular-nums text-brand">
+                      <span className="font-mono text-[12px] font-medium text-brand">
                         {s.n}
                       </span>
                       <span className="h-px w-12 bg-line" />
