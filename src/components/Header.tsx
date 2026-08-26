@@ -55,7 +55,7 @@ export default function Header() {
           hidden ? "-translate-y-full" : "translate-y-0"
         } ${
           solid
-            ? "border-b border-line bg-paper/92 backdrop-blur-xl"
+            ? "border-b border-line bg-paper/95 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         }`}
         style={{ height: "var(--header-h)" }}

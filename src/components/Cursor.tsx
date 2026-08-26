@@ -17,13 +17,12 @@ const LABEL: Record<Mode, string> = {
 };
 
 /**
- * Two-layer cursor: a hard dot that tracks 1:1 and a soft ring that lags.
- * The ring inverts what's under it (mix-blend-mode: difference), so it reads
- * on both the white sections and the black ones without any per-section logic.
- * Desktop + fine pointer only.
+ * A ring that trails the real cursor — the native pointer stays visible and
+ * pixel-accurate, so nothing ever feels laggy. The ring inverts what's under
+ * it (mix-blend-mode: difference), so it reads on white and black sections
+ * alike. Desktop + fine pointer only.
  */
 export default function Cursor() {
-  const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>("idle");
   const [visible, setVisible] = useState(false);
@@ -33,7 +32,6 @@ export default function Cursor() {
 
   useEffect(() => {
     if (!enabled) return;
-    document.documentElement.classList.add("has-cursor");
 
     const target = { x: innerWidth / 2, y: innerHeight / 2 };
     const soft = { ...target };
@@ -56,11 +54,8 @@ export default function Cursor() {
 
     const frame = () => {
       raf = requestAnimationFrame(frame);
-      soft.x += (target.x - soft.x) * 0.16;
-      soft.y += (target.y - soft.y) * 0.16;
-      if (dot.current) {
-        dot.current.style.transform = `translate3d(${target.x}px, ${target.y}px, 0) translate(-50%, -50%)`;
-      }
+      soft.x += (target.x - soft.x) * 0.3;
+      soft.y += (target.y - soft.y) * 0.3;
       if (ring.current) {
         ring.current.style.transform = `translate3d(${soft.x}px, ${soft.y}px, 0) translate(-50%, -50%)`;
       }
@@ -74,7 +69,6 @@ export default function Cursor() {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerleave", onLeave);
-      document.documentElement.classList.remove("has-cursor");
     };
   }, [enabled]);
 
@@ -91,17 +85,11 @@ export default function Cursor() {
       } transition-opacity duration-300`}
     >
       <div
-        ref={dot}
-        className={`absolute left-0 top-0 rounded-full bg-brand transition-[width,height,opacity] duration-300 ${
-          mode === "idle" ? "h-1.5 w-1.5 opacity-100" : "h-1 w-1 opacity-0"
-        }`}
-      />
-      <div
         ref={ring}
         className="absolute left-0 top-0 grid place-items-center rounded-full border border-paper/70 transition-[width,height,background-color,border-color] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] mix-blend-difference"
         style={{
-          width: big ? 88 : mode === "link" ? 46 : 26,
-          height: big ? 88 : mode === "link" ? 46 : 26,
+          width: big ? 86 : mode === "link" ? 44 : 22,
+          height: big ? 86 : mode === "link" ? 44 : 22,
           backgroundColor: big ? "rgba(255,255,255,0.92)" : "transparent",
           borderColor: big ? "transparent" : "rgba(255,255,255,0.7)",
         }}

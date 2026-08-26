@@ -15,9 +15,12 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // A trackpad already carries OS-level inertia, so stacking a long easing
+    // curve on top of it reads as syrup. lerp 0.2 closes a fifth of the
+    // remaining distance every frame: it only smooths the steps of a mouse
+    // wheel and stays out of the way of everything else.
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.2,
       smoothWheel: true,
       syncTouch: false,
       touchMultiplier: 1.6,

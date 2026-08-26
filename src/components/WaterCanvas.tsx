@@ -72,7 +72,7 @@ vec2 dropField(vec2 uv, float t, out float glint) {
   vec2 d = vec2(0.0);
   glint = 0.0;
 
-  for (int i = 0; i < 9; i++) {
+  for (int i = 0; i < 5; i++) {
     float fi = float(i);
     float speed = 0.055 + hash(vec2(fi, 1.7)) * 0.085;
     float x     = 0.06 + hash(vec2(fi, 2.3)) * 0.88;
@@ -174,6 +174,10 @@ export default function WaterCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Not worth the battery or the frame budget on phones and low-core
+    // machines — the plain photo underneath already looks right.
+    if (window.innerWidth < 768) return;
+    if ((navigator.hardwareConcurrency ?? 8) <= 4) return;
 
     const gl = (canvas.getContext("webgl", {
       antialias: false,
@@ -250,7 +254,10 @@ export default function WaterCanvas({
     const smooth = { x: 0.5, y: 0.5 };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // The refraction is soft by nature, so it survives being rendered below
+      // device resolution — and that is what keeps the hero off the main
+      // thread's critical path.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1);
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (w === 0 || h === 0) return;
@@ -285,6 +292,19 @@ export default function WaterCanvas({
       pointer.targetOn = 0;
     };
 
+    // While the page is moving, the hero is flying past anyway — give the whole
+    // frame budget to the scroll and resume the water once it settles.
+    let scrolling = false;
+    let scrollTimer = 0;
+    const onScroll = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        scrolling = false;
+      }, 160);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     let visible = true;
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -301,15 +321,22 @@ export default function WaterCanvas({
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave, { passive: true });
 
-    const frame = () => {
+    // ~40fps is indistinguishable for water this slow and leaves the rest of
+    // the frame budget to scrolling.
+    const MIN_FRAME_MS = 1000 / 40;
+    let lastDraw = 0;
+
+    const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
-      if (!visible || document.hidden) return;
+      if (!visible || scrolling || document.hidden) return;
+      if (now - lastDraw < MIN_FRAME_MS) return;
+      lastDraw = now;
 
-      smooth.x += (pointer.x - smooth.x) * 0.08;
-      smooth.y += (pointer.y - smooth.y) * 0.08;
-      pointer.on += (pointer.targetOn - pointer.on) * 0.05;
+      smooth.x += (pointer.x - smooth.x) * 0.16;
+      smooth.y += (pointer.y - smooth.y) * 0.16;
+      pointer.on += (pointer.targetOn - pointer.on) * 0.1;
 
-      gl.uniform1f(U.time, (performance.now() - start) / 1000);
+      gl.uniform1f(U.time, (now - start) / 1000);
       gl.uniform2f(U.mouse, smooth.x, smooth.y);
       gl.uniform1f(U.mouseOn, pointer.on);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -323,6 +350,8 @@ export default function WaterCanvas({
       ro.disconnect();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(scrollTimer);
       gl.deleteTexture(tex);
       gl.deleteBuffer(buf);
       gl.deleteProgram(prog);

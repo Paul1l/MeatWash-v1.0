@@ -41,32 +41,65 @@ export function Magnetic({
     if (!window.matchMedia("(pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const onMove = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const dx = e.clientX - cx;
-      const dy = e.clientY - cy;
-      const dist = Math.hypot(dx, dy);
-      const reach = Math.max(r.width, r.height) / 2 + radius;
-      if (dist < reach) {
+    // Layout reads are cached and only refreshed when the page actually moved.
+    // Reading getBoundingClientRect on every pointermove forces a synchronous
+    // reflow per magnetic element, per mouse event.
+    let box: { cx: number; cy: number; reach: number } | null = null;
+    let boxAt = -1;
+
+    const readBox = () => {
+      if (!box || boxAt !== window.scrollY) {
+        const r = el.getBoundingClientRect();
+        box = {
+          cx: r.left + r.width / 2,
+          cy: r.top + r.height / 2,
+          reach: Math.max(r.width, r.height) / 2 + radius,
+        };
+        boxAt = window.scrollY;
+      }
+      return box;
+    };
+
+    let queued: PointerEvent | null = null;
+    let raf = 0;
+
+    const apply = () => {
+      raf = 0;
+      const e = queued;
+      queued = null;
+      if (!e) return;
+      const b = readBox();
+      const dx = e.clientX - b.cx;
+      const dy = e.clientY - b.cy;
+      if (Math.hypot(dx, dy) < b.reach) {
         x.set(dx * strength);
         y.set(dy * strength);
-      } else {
+      } else if (x.get() !== 0 || y.get() !== 0) {
         x.set(0);
         y.set(0);
       }
+    };
+
+    const onMove = (e: PointerEvent) => {
+      queued = e;
+      if (!raf) raf = requestAnimationFrame(apply);
     };
     const reset = () => {
       x.set(0);
       y.set(0);
     };
+    const invalidate = () => {
+      box = null;
+    };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", reset);
+    window.addEventListener("resize", invalidate);
     return () => {
+      if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", reset);
+      window.removeEventListener("resize", invalidate);
     };
   }, [radius, strength, x, y]);
 
@@ -171,11 +204,17 @@ export function Tilt({
   const reduce = useMediaQuery(REDUCED_MOTION);
   const on = fine && !reduce;
 
+  const box = useRef<DOMRect | null>(null);
+
+  const onEnter = () => {
+    box.current = ref.current?.getBoundingClientRect() ?? null;
+  };
+
   const onMove = (e: React.PointerEvent) => {
     if (!on) return;
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
+    const r = box.current ?? ref.current?.getBoundingClientRect();
+    if (!r) return;
+    box.current = r;
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
     ry.set((px - 0.5) * max * 2);
@@ -185,6 +224,7 @@ export function Tilt({
   };
 
   const reset = () => {
+    box.current = null;
     rx.set(0);
     ry.set(0);
   };
@@ -198,6 +238,7 @@ export function Tilt({
   return (
     <motion.div
       ref={ref}
+      onPointerEnter={onEnter}
       onPointerMove={onMove}
       onPointerLeave={reset}
       style={{
