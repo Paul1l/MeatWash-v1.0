@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HomeHero } from "@/components/Hero";
+import WashHero from "@/components/WashHero";
 import Stage from "@/components/Stage";
 import Rail from "@/components/Rail";
 import Counter from "@/components/Counter";
@@ -60,9 +60,7 @@ const STEPS = [
 export default function Home() {
   return (
     <>
-      <HomeHero
-        image="/img/hero-rangerover.jpg"
-        alt="Range Rover после мойки в Meat Wash на Мясницкой"
+      <WashHero
         eyebrow="Москва · Мясницкая · Технопарк"
         lines={["Чистим то,", "что другим лень."]}
         sub="Детейлинг-мойка в центре Москвы. Ручная работа, подбор химии под покрытие и два часа закрытого паркинга, пока вы заняты своими делами."
