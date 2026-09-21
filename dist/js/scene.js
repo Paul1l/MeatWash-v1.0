@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {MeshoptDecoder} from 'meshoptimizer/decoder';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {buildInterior} from './interior.js';
 import {buildGarage} from './garage.js';
@@ -7,6 +8,7 @@ import {createWater} from './water.js';
 import {CAMERA_STOPS,clamp,smooth} from './config.js';
 
 export async function createScene(canvas){
+ const loadingStarted=performance.now();
  const mobile=()=>innerWidth<=800&&innerHeight>innerWidth;
  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
  renderer.setPixelRatio(Math.min(devicePixelRatio,mobile()?1:1.25));
@@ -15,7 +17,9 @@ export async function createScene(canvas){
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  const scene=new THREE.Scene();scene.background=new THREE.Color('#080808');scene.fog=new THREE.FogExp2('#080808',.014);
  const camera=new THREE.PerspectiveCamera(35,1,.018,80);
- const [garage,gltf]=await Promise.all([buildGarage(scene,renderer),new GLTFLoader().loadAsync('./assets/porsche-930.glb')]);
+ const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+ const [garage,gltf]=await Promise.all([buildGarage(scene,renderer),loader.loadAsync('./assets/porsche-930-optimized.glb')]);
+ canvas.dataset.assetsMs=String(Math.round(performance.now()-loadingStarted));
  const car=gltf.scene;car.updateMatrixWorld(true);
  const body=car.getObjectByName('Object_113');
  const bounds=new THREE.Box3().setFromObject(body),size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3());
@@ -58,6 +62,7 @@ export async function createScene(canvas){
  const lens=car.getObjectByName('Object_130')?.material;
  car.traverse(o=>{if(o.isMesh&&o.material.ior===1.52&&!glass.includes(o)&&lens?.normalMap){o.material.normalMap=lens.normalMap;o.material.map=lens.map;o.material.color.setRGB(2.1,2.1,2.1);}});
  const water=createWater(scene,car.getObjectByName('Object_30'),mobile());
+ canvas.dataset.setupMs=String(Math.round(performance.now()-loadingStarted));
  renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
  let current=0,lastWidth=0,lastHeight=0,disposed=false,frameCount=0,lastFrame=0;
  const renderSamples=[],intervalSamples=[];
@@ -97,6 +102,7 @@ export async function createScene(canvas){
  resize();
  camera.position.fromArray(CAMERA_STOPS[0].p);camera.lookAt(new THREE.Vector3(...CAMERA_STOPS[0].t));camera.updateProjectionMatrix();
  await renderer.compileAsync(scene,camera);
+ canvas.dataset.compileMs=String(Math.round(performance.now()-loadingStarted));
  update(0,true);
  return {update,resize:()=>update(current,true),stats:()=>({drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures,geometries:renderer.info.memory.geometries}),dispose(){
   if(disposed)return;disposed=true;water.dispose();garage.dispose();

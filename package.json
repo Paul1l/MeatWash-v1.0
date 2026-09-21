@@ -3,6 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "description": "MEATWASH reference design with a scroll-driven Porsche scene",
-  "scripts": {"start": "node serve.cjs", "check": "node scripts/check.mjs"},
-  "dependencies": {"gsap": "3.13.0"}
+  "scripts": {
+    "start": "node serve.cjs",
+    "check": "node scripts/check.mjs",
+    "optimize": "node scripts/optimize.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.13.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
+    "esbuild": "^0.28.2",
+    "meshoptimizer": "^1.2.0",
+    "sharp": "^0.35.4",
+    "wawoff2": "^2.0.1"
+  }
 }

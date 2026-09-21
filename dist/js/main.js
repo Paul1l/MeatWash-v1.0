@@ -69,7 +69,7 @@ function staticExperience(){
  canvas.style.opacity='0';section.dataset.mode=(motion.matches||forceStatic)?'reduced-motion':'static-fallback';
 }
 async function start(){
- if(motion.matches||forceStatic){staticExperience();return;}
+ if(motion.matches||forceStatic||navigator.connection?.saveData){staticExperience();return;}
  if(!window.gsap||!window.ScrollTrigger){staticExperience();return;}
  const {gsap,ScrollTrigger}=window;gsap.registerPlugin(ScrollTrigger);
  tween=gsap.to(state,{progress:1,ease:'none',onUpdate:()=>apply(state.progress),scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:1.35,invalidateOnRefresh:true}});
@@ -78,7 +78,11 @@ async function start(){
   // Give the reference hero a committed paint before parsing and uploading the GLB.
   await document.fonts.ready;
   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-  const {createScene}=await import('./scene.js');const loaded=await createScene(canvas);
+  const started=performance.now();
+  // Fetch the model alongside the scene module, after the hero has painted.
+  const preload=document.createElement('link');preload.rel='preload';preload.as='fetch';preload.crossOrigin='anonymous';preload.href='assets/porsche-930-optimized.glb';document.head.append(preload);
+  const {createScene}=await import('./scene.bundle.js');const loaded=await createScene(canvas);
+  section.dataset.loadMs=String(Math.round(performance.now()-started));
   if(destroyed||motion.matches){loaded.dispose();return;}
   scene=loaded;section.dataset.mode='webgl';apply(state.progress);
  }catch(error){
@@ -96,4 +100,4 @@ motion.addEventListener('change',()=>{if(motion.matches)staticExperience();else 
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();staticExperience();},{signal:controller.signal});
 addEventListener('pagehide',event=>{if(event.persisted)return;destroyed=true;cancelAnimationFrame(resizeFrame);tween?.kill();trigger?.kill();scene?.dispose();lcpObserver?.disconnect();cleanupUI();controller.abort();},{once:true});
 document.fonts.ready.then(()=>window.ScrollTrigger?.refresh());
-if(document.readyState==='complete')start();else addEventListener('load',start,{once:true});
+if(document.readyState==='loading')addEventListener('DOMContentLoaded',start,{once:true});else start();

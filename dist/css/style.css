@@ -3,8 +3,8 @@
    Static site, no build step. Reference: MEATWASH design mock-up (1440 grid).
    ========================================================================== */
 
-@font-face { font-family: 'Prata'; src: url('../assets/fonts/prata.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Manrope'; src: url('../assets/fonts/manrope.ttf') format('truetype'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: 'Prata'; src: url('../assets/fonts/prata.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Manrope'; src: url('../assets/fonts/manrope.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
 
 /* ---------- Design tokens ---------- */
 :root {
