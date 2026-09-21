@@ -1,0 +1,8 @@
+{
+  "name": "meatwash-cinematic",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MEATWASH reference design with a scroll-driven Porsche scene",
+  "scripts": {"start": "node serve.cjs", "check": "node scripts/check.mjs"},
+  "dependencies": {"gsap": "3.13.0"}
+}

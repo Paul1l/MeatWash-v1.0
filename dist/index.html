@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>MEATWASH — Car Care Club · Москва</title>
+<meta name="description" content="MEATWASH Car Care Club — премиальный детейлинг в Москве. Ручная мойка, химчистка салона, полировка, керамическая защита. Мясницкая и Технопарк.">
+<meta property="og:title" content="MEATWASH — Больше, чем мойка">
+<meta property="og:description" content="Уход, который сохраняет ценность. Car Care Club в центре Москвы.">
+<meta property="og:image" content="assets/img/og.webp">
+<link rel="preload" href="assets/fonts/prata.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/img/hero-hq.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cinematic.css">
+<script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip-link" href="#services">Перейти к услугам</a>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <a class="brand" href="#top" aria-label="MEATWASH — на главную">
+    <span class="brand__name">MEATWASH</span>
+    <span class="brand__sub">CAR CARE CLUB</span>
+  </a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="#services">Услуги</a>
+    <a href="#locations">Локации</a>
+    <a href="#club">О клубе</a>
+    <a href="#contacts">Контакты</a>
+    <button class="nav__next" type="button" data-scroll-next aria-label="Следующий раздел"><span class="nav__line"></span><span aria-hidden="true">→</span></button>
+  </nav>
+  <button class="btn btn--fill header__cta" type="button" data-book>Записаться</button>
+  <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню"><span></span><span></span></button>
+</header>
+<nav class="mobile-menu" id="mobile-menu" aria-label="Мобильная навигация" hidden>
+  <a href="#services">Услуги</a><a href="#locations">Локации</a><a href="#club">О клубе</a><a href="#contacts">Контакты</a>
+  <button class="btn btn--fill" type="button" data-book>Записаться</button>
+</nav>
+
+<main id="top">
+
+<!-- ============ CINEMATIC SCENE: hero → THE BODY ============ -->
+<section class="scene" id="scene" aria-label="Porsche 911 — больше, чем мойка">
+  <div class="scene__sticky">
+    <div class="scene__poster" aria-hidden="true"><img src="assets/img/hero-hq.webp" width="1672" height="941" fetchpriority="high" alt=""></div>
+    <div class="scene__fallback" aria-hidden="true"><img src="assets/img/body.webp" alt=""></div>
+    <canvas id="porsche" aria-label="Porsche 911: камера приближается к деталям при прокрутке" role="img"></canvas>
+    <div class="scene__shade" aria-hidden="true"></div>
+    <a class="scene__skip" href="#services">Все услуги ↓</a>
+    <!-- hero UI -->
+    <div class="hero" data-ui="hero">
+      <h1 class="hero__title">Больше,<br>чем мойка</h1>
+      <p class="hero__sub">Уход, который сохраняет ценность</p>
+    </div>
+    <div class="hero-bar" data-ui="bar">
+      <div class="hero-bar__progress">
+        <span class="hero-bar__count"><b>01</b><i>/</i><span>04</span></span>
+        <span class="hero-bar__step">Кузов</span>
+        <span class="hero-bar__line" aria-hidden="true"><i data-progress></i></span>
+      </div>
+      <div class="hero-bar__thumbs" role="group" aria-label="Этапы ухода">
+        <a class="thumb is-active" href="#scene" data-scene-stop="body" aria-label="Кузов"><img src="assets/img/thumb-body.webp" alt="" width="255" height="135" loading="lazy"></a>
+        <a class="thumb" href="#scene" data-scene-stop="interior" aria-label="Салон"><img src="assets/img/thumb-interior.webp" alt="" width="255" height="135" loading="lazy"></a>
+        <a class="thumb" href="#scene" data-scene-stop="polish" aria-label="Полировка"><img src="assets/img/thumb-polish.webp" alt="" width="255" height="135" loading="lazy"></a>
+      </div>
+      <button class="hero-bar__scroll" type="button" data-scroll-next>SCROLL</button>
+    </div>
+    <button class="hero__dot" type="button" data-scroll-next aria-label="Листать дальше"><i></i></button>
+
+    <article class="chapter" data-chapter="body" aria-hidden="true" inert>
+      <div class="chapter__index"><span>01</span><span>Кузов</span></div>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Body</h2>
+      <span class="chapter__kicker">Мойка</span>
+      <p class="chapter__lead">Чистота — основа характера</p>
+      <p class="chapter__text">2–3-фазная ручная мойка, которая раскрывает настоящий цвет.</p>
+      <button class="btn btn--ghost" type="button" data-service="body">Подробнее <span aria-hidden="true">→</span></button>
+    </article>
+    <article class="chapter" data-chapter="interior" aria-hidden="true" inert>
+      <div class="chapter__index"><span>02</span><span>Салон</span></div>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Interior</h2>
+      <span class="chapter__kicker">Химчистка салона</span>
+      <p class="chapter__lead">Красота изнутри</p>
+      <p class="chapter__text">Салон должен выглядеть так, будто в нём ещё никто не ездил.</p>
+      <button class="btn btn--ghost" type="button" data-service="interior">Подробнее <span aria-hidden="true">→</span></button>
+    </article>
+    <article class="chapter" data-chapter="polish" aria-hidden="true" inert>
+      <div class="chapter__index"><span>03</span><span>Полировка</span></div>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Reflection</h2>
+      <span class="chapter__kicker">Полировка кузова</span>
+      <p class="chapter__lead">Свет показывает всё.</p>
+      <p class="chapter__text">Полировка кузова и восстановление глубины цвета.</p>
+      <button class="btn btn--ghost" type="button" data-service="polish">Подробнее <span aria-hidden="true">→</span></button>
+    </article>
+    <article class="chapter" data-chapter="ceramic" aria-hidden="true" inert>
+      <div class="chapter__index"><span>04</span><span>Керамика</span></div>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Protection</h2>
+      <span class="chapter__kicker">Керамическая защита</span>
+      <p class="chapter__lead">Сохранить безупречность</p>
+      <p class="chapter__text">Глубина цвета. Защита поверхности.</p>
+      <button class="btn btn--ghost" type="button" data-service="ceramic">Подробнее <span aria-hidden="true">→</span></button>
+    </article>
+    <div class="finale" aria-hidden="true" inert>
+      <span class="eyebrow">CAR CARE CLUB</span><h2>MEATWASH</h2>
+      <p>Уход, который сохраняет ценность</p>
+      <button class="btn btn--fill" type="button" data-book>Записаться</button>
+    </div>
+    <nav class="chapter-nav" aria-label="Главы ухода" hidden>
+      <button data-scene-stop="body" aria-label="Кузов">01</button>
+      <button data-scene-stop="interior" aria-label="Салон">02</button>
+      <button data-scene-stop="polish" aria-label="Полировка">03</button>
+      <button data-scene-stop="ceramic" aria-label="Керамика">04</button>
+      <span class="chapter-nav__line"><i></i></span>
+    </nav>
+  </div>
+</section>
+
+<!-- ============ 02 / 03 / 04 ============ -->
+<section class="strip" id="services" aria-label="Услуги">
+  <a class="card card--interior" id="card-interior" href="#service-dialog" data-service="interior">
+    <img src="assets/img/card-interior.webp" alt="Кожаное сиденье Porsche после химчистки салона" width="685" height="410" loading="lazy" decoding="async">
+    <span class="card__label"><span>02</span><span>Салон</span></span>
+    <span class="card__caption">Химчистка салона</span>
+  </a>
+  <a class="card card--polish" id="card-polish" href="#service-dialog" data-service="polish">
+    <img src="assets/img/card-polish.webp" alt="Полировальная машинка на бордовом капоте" width="678" height="410" loading="lazy" decoding="async">
+    <span class="card__label"><span>03</span><span>Полировка</span></span>
+    <span class="card__caption">Полировка кузова</span>
+  </a>
+  <a class="card card--ceramic" id="card-ceramic" href="#service-dialog" data-service="ceramic">
+    <img src="assets/img/card-ceramic.webp" alt="Капли воды на капоте после керамического покрытия" width="717" height="410" loading="lazy" decoding="async">
+    <span class="card__label"><span>04</span><span>Керамика</span></span>
+    <span class="card__caption">Керамическая защита</span>
+  </a>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="club" aria-labelledby="about-title">
+  <div class="about__photo" data-reveal>
+    <img src="assets/img/about.webp" alt="Porsche 911 с номером MEATWASH, винтажное фото" width="800" height="595" loading="lazy" decoding="async">
+  </div>
+  <div class="about__copy">
+    <span class="brand__name brand__name--dark" id="about-title">MEATWASH</span>
+    <span class="brand__sub brand__sub--dark">CAR CARE CLUB</span>
+    <p>Премиальный детейлинг в центре Москвы. Техно&shy;логии, опыт и внимание к каждой детали.</p>
+    <a class="btn btn--ghost btn--ink" href="#membership">О клубе</a>
+  </div>
+  <dl class="about__stats">
+    <div><dt>5.0</dt><dd>Рейтинг на Яндекс Картах</dd></div>
+    <div><dt>2</dt><dd>Локации в Москве</dd></div>
+    <div><dt>1000+</dt><dd>Постоянных клиентов</dd></div>
+  </dl>
+</section>
+
+<!-- ============ LOCATIONS ============ -->
+<section class="locations" id="locations" aria-label="Локации">
+  <article class="location">
+    <div class="location__card">
+      <h3>Мясницкая</h3>
+      <span class="location__type">Премиальная мойка</span>
+      <p class="location__meta">ул. Мясницкая, 11<br>Пн–Пт 08:00 — 22:00<br>Сб–Вс 09:00 — 22:00</p>
+      <a class="link-arrow" href="https://yandex.ru/maps/org/meat_wash/191686454110/" target="_blank" rel="noopener noreferrer">Подробнее <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="location__photo"><img src="assets/img/loc-myasnitskaya.webp" alt="Мойка MEATWASH на Мясницкой" width="518" height="323" loading="lazy" decoding="async"></div>
+  </article>
+  <article class="location">
+    <div class="location__card">
+      <h3>Технопарк</h3>
+      <span class="location__type">Детейлинг-центр</span>
+      <p class="location__meta">пр-т Андропова, 8, стр. 2<br>Ежедневно 08:00 — 22:00</p>
+      <a class="link-arrow" href="https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/" target="_blank" rel="noopener noreferrer">Подробнее <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="location__photo"><img src="assets/img/loc-technopark.webp" alt="Детейлинг-центр MEATWASH в Технопарке" width="547" height="323" loading="lazy" decoding="async"></div>
+  </article>
+</section>
+
+<!-- ============ MEMBERSHIP ============ -->
+<section class="membership" id="membership" aria-labelledby="membership-title">
+  <div class="membership__card" data-reveal>
+    <img src="assets/img/member-card.webp" alt="Членская карта MEATWASH Car Care Club" width="675" height="321" loading="lazy" decoding="async">
+  </div>
+  <div class="membership__copy">
+    <h2 id="membership-title">Больше, чем сервис</h2>
+    <p>Закрытый автомобильный клуб. Привилегии, специальные предложения и особые условия.</p>
+    <button class="btn btn--ink-fill" type="button" data-membership>Стать членом клуба <span class="btn__circle" aria-hidden="true">→</span></button>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="contacts">
+  <div class="footer__row">
+    <a class="brand" href="#top"><span class="brand__name">MEATWASH</span><span class="brand__sub">CAR CARE CLUB</span></a>
+    <nav class="footer__nav" aria-label="Навигация в подвале">
+      <a href="#services">Услуги</a><a href="#locations">Локации</a><a href="#club">О клубе</a><a href="#contacts">Контакты</a>
+    </nav>
+    <div class="footer__social">
+      <a href="https://n975571.yclients.com" target="_blank" rel="noopener noreferrer" aria-label="Онлайн-запись">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1" fill="none" stroke="currentColor"/><path d="M7 2v6M17 2v6M3 10h18M8 15h8" fill="none" stroke="currentColor"/></svg>
+      </a>
+      <a href="tel:+79300352325" aria-label="Позвонить">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8.6 8.2c.4-.4 1-.4 1.3 0l1 1.3c.3.4.3.9 0 1.3l-.6.7c.6 1.1 1.5 2 2.6 2.6l.7-.6c.4-.3.9-.3 1.3 0l1.3 1c.4.3.4.9 0 1.3l-.7.7c-.6.6-1.5.7-2.3.4-2.5-1.1-4.5-3.1-5.6-5.6-.3-.8-.2-1.7.4-2.3z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+    </div>
+    <button class="btn btn--fill" type="button" data-book>Записаться</button>
+  </div>
+  <div class="footer__base">
+    <span>© 2026 Meatwash. Все права защищены.</span>
+    <span>Moscow, Russia</span>
+    <span>Чистота. Стиль. Характер. <a class="credits-link" href="credits.html" aria-label="Авторы визуальных материалов">↗</a></span>
+  </div>
+</footer>
+</main>
+
+<button class="btn btn--fill mobile-cta" type="button" data-book>Записаться</button>
+
+<!-- ============ BOOKING ============ -->
+<dialog class="dialog" id="booking" aria-labelledby="booking-title">
+  <form method="dialog"><button class="dialog__close" aria-label="Закрыть">×</button></form>
+  <span class="eyebrow">MEATWASH / CAR CARE CLUB</span>
+  <h2 id="booking-title">Записаться</h2>
+  <p>Филиал, услуга и время выбираются в онлайн-записи.</p>
+  <a class="btn btn--fill" href="https://n975571.yclients.com" target="_blank" rel="noopener noreferrer">Выбрать время <span aria-hidden="true">→</span></a>
+  <div class="dialog__phones">
+    <a href="tel:+79300352325"><span>Мясницкая</span><strong>+7 (930) 035-23-25</strong></a>
+    <a href="tel:+79324916991"><span>Технопарк</span><strong>+7 (932) 491-69-91</strong></a>
+  </div>
+</dialog>
+
+<dialog class="dialog service-dialog" id="service-dialog" aria-labelledby="service-title">
+  <form method="dialog"><button class="dialog__close" aria-label="Закрыть">×</button></form>
+  <span class="eyebrow" id="service-label"></span><h2 id="service-title"></h2>
+  <p id="service-description"></p><dl class="service-prices" id="service-prices"></dl>
+  <button class="btn btn--fill" type="button" data-book>Записаться</button>
+</dialog>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* Cinematic layer. Reference typography/grid remain in style.css. */
+:root { --background:#080808; --surface:#1d1511; --foreground:#e9dfd0; --border:rgba(255,255,255,.15); --space:8px; --container:1728px; }
+html { scroll-behavior:auto; }
+.header.is-solid, body.menu-open .header { background:#080808; backdrop-filter:none; }
+.scene { height:780svh; }
+.scene__sticky { height:100svh; isolation:isolate; }
+.scene__poster,.scene__fallback,#porsche { position:absolute; inset:0; width:100%; height:100%; }
+.scene__poster { z-index:1; pointer-events:none; overflow:hidden; }
+.scene__poster img,.scene__fallback img { width:100%; height:100%; object-fit:cover; }
+.scene__poster img { object-position:50% 45%; transform-origin:60% 53%; }
+.scene__fallback { opacity:0; }
+#porsche { opacity:0; }
+.scene__shade { z-index:1; background:linear-gradient(0deg,rgba(8,8,8,.72),transparent 45%,transparent 83%,rgba(8,8,8,.3)); }
+.scene__sticky::after { z-index:1; background:linear-gradient(90deg,#080808 0%,rgba(8,8,8,.96) 20%,rgba(8,8,8,.55) 32%,transparent 50%); }
+.hero { bottom:14.5%; }
+.hero__title { font-size:clamp(48px,5.8vw,94px); line-height:.91; letter-spacing:-.045em; }
+.hero__sub { margin-top:32px; }
+.hero-bar { bottom:4%; }
+.hero__dot i { animation:none; }
+.chapter { width:min(30vw,440px); top:50%; transform:translateY(-50%); }
+.chapter__title { font-size:clamp(48px,4.5vw,74px); letter-spacing:-.035em; }
+.chapter__break { display:block; }
+.chapter[data-chapter=ceramic] .chapter__title,.chapter[data-chapter=polish] .chapter__title { font-size:clamp(38px,3.75vw,62px); }
+.chapter__lead { font-size:clamp(18px,1.55vw,24px); }
+.chapter__text { font-size:14px; }
+.chapter__kicker { font-size:10px; }
+.chapter-nav { position:absolute; z-index:3; left:11.5vw; bottom:32px; display:flex; align-items:center; gap:22px; }
+.chapter-nav button { font-size:12px; color:var(--muted); width:30px; height:44px; }
+.chapter-nav button[aria-current] { color:var(--ivory); }
+.chapter-nav__line { height:1px; width:90px; background:var(--line); }
+.chapter-nav__line i { display:block; height:1px; width:0; background:var(--ivory); }
+.scene__skip { position:absolute; z-index:3; bottom:34px; right:var(--gutter); color:var(--muted); font-size:12px; opacity:0; visibility:hidden; padding:12px 0; }
+.scene__skip.is-visible { opacity:1; visibility:visible; }
+.finale { position:absolute; z-index:2; left:var(--gutter); bottom:11%; opacity:0; pointer-events:none; }
+.finale h2 { font-size:clamp(44px,5.8vw,92px); margin:16px 0 20px; letter-spacing:-.04em; }
+.finale p { color:var(--ivory); margin-bottom:24px; }
+.finale:not([inert]) { pointer-events:auto; }
+.card__caption { opacity:1; transform:none; }
+.card::after { background:linear-gradient(0deg,rgba(8,8,8,.48),transparent 40%,rgba(8,8,8,.48)); }
+.card { transition:filter .5s ease; }
+.card:hover { filter:brightness(1.12); }
+.membership__card img { opacity:1; transform:none; }
+.service-dialog { max-height:85svh; overflow:auto; width:min(92vw,570px); }
+.service-prices { margin:24px 0 0; }
+.service-prices div { display:flex; justify-content:space-between; gap:24px; padding:13px 0; border-top:1px solid var(--line); font-size:13px; }
+.service-prices dd { white-space:nowrap; }
+.service-dialog .btn { width:100%; }
+body:has(dialog[open]) { overflow:hidden; }
+.credits-link { display:inline-block; padding:0 4px; }
+.dialog::backdrop { backdrop-filter:none; }
+.location__photo img { filter:none; }
+.footer__social a { width:40px; height:40px; }
+@media(min-width:1700px) { .hero__title { font-size:108px; } }
+@media(max-width:1100px) { .chapter { left:var(--gutter); width:37vw; } .chapter__title { font-size:54px; } .chapter-nav { left:var(--gutter); } }
+@media(max-width:800px) and (orientation:portrait) {
+  :root { --gutter:16px; }
+  .scene { height:690svh; }
+  .header { background:#080808; border-bottom:1px solid var(--line); }
+  .brand__name { font-size:24px; }
+  .scene__poster img { object-position:55% 35%; }
+  .hero { bottom:194px; }
+  .hero__title { font-size:clamp(36px,10.4vw,65px); line-height:.95; }
+  .hero__sub { margin-top:16px; font-size:14px; }
+  .hero-bar { bottom:85px; row-gap:12px; }
+  .hero-bar__thumbs { gap:8px; }
+  .hero-bar .thumb { width:60px; height:42px; }
+  .chapter { top:auto; bottom:116px; left:16px; right:16px; width:auto; transform:none; }
+  .chapter__index { flex-direction:row; align-items:center; gap:12px; }
+  .chapter__index span:first-child { font-size:12px; }
+  .chapter__title { font-size:clamp(30px,8.6vw,44px); margin-top:12px; }
+  .chapter__break { display:inline; white-space:pre; }
+  .chapter[data-chapter=ceramic] .chapter__title,.chapter[data-chapter=polish] .chapter__title { font-size:clamp(29px,8vw,44px); }
+  .chapter__title br { display:none; }
+  .chapter__title br::after { content:' '; }
+  .chapter__kicker { margin-top:10px; }
+  .chapter__lead { font-size:17px; margin-top:14px; }
+  .chapter__text { font-size:13px; line-height:1.5; max-width:36ch; margin-top:8px; }
+  .chapter .btn { height:38px; margin-top:16px; }
+  .chapter-nav { left:16px; bottom:66px; gap:12px; }
+  .chapter-nav__line { width:60px; }
+  .scene__skip { bottom:76px; right:16px; font-size:11px; }
+  .scene__sticky::after { background:linear-gradient(0deg,#080808 0%,rgba(8,8,8,.95) 25%,rgba(8,8,8,.18) 49%,transparent 63%); }
+  .scene__shade { background:linear-gradient(0deg,rgba(8,8,8,.94),transparent 58%); }
+  .finale { bottom:120px; right:16px; }
+  .finale h2 { font-size:46px; }
+  .finale .btn { display:none; }
+  .mobile-cta { bottom:max(12px,env(safe-area-inset-bottom)); height:46px; box-shadow:0 0 0 8px #080808; }
+  body:has(dialog[open]) .mobile-cta { visibility:hidden; }
+  .membership__card img { transform:translateX(-50%); }
+  .about__copy { padding-bottom:24px; }
+  .location__meta { font-size:13px; }
+  .about__stats dt { font-size:24px; }
+}
+@media(max-height:560px) and (orientation:landscape) {
+  .chapter { top:55%; width:36vw; }
+  .chapter__title { font-size:34px; margin-top:8px; }
+  .chapter__lead { font-size:15px; margin-top:12px; }
+  .chapter__text { font-size:12px; }
+  .chapter .btn { margin-top:12px; }
+  .chapter-nav,.scene__skip { bottom:0; }
+}
+/* Compact landscape windows need a single-row footer beneath the hero copy. */
+@media(max-width:900px) and (orientation:landscape) {
+  .hero { bottom:100px; }
+  .hero__title { font-size:clamp(30px,6vw,48px); }
+  .hero__sub { font-size:14px; margin-top:14px; }
+  .hero-bar { bottom:24px; grid-template-columns:1fr auto; }
+  .hero-bar__thumbs { display:none; }
+  .hero__dot { display:none; }
+}
+/* No animation: genuine static frames, with no pinned multi-screen empty track. */
+.static-experience .scene { height:auto; }
+.static-experience .scene__sticky { position:relative; height:auto; overflow:visible; }
+.static-experience #porsche,.static-experience .scene__fallback,.static-experience .scene__shade,.static-experience .scene__sticky::after,.static-experience .hero-bar,.static-experience .hero__dot,.static-experience .chapter-nav,.static-experience .scene__skip { display:none; }
+.static-experience .scene__poster { height:100svh; }
+.static-experience .hero { position:relative; left:auto; bottom:auto; height:100svh; padding:60svh var(--gutter) 70px; max-width:none; }
+.static-experience .chapter { position:relative; inset:auto; min-height:90svh; width:100%; opacity:1; padding:20svh 11.5vw 10svh; transform:none; background:linear-gradient(90deg,#080808,transparent 80%),var(--static-image) center/cover; pointer-events:auto; }
+.static-experience .chapter[data-chapter=body] { --static-image:url('../assets/img/body.webp'); }
+.static-experience .chapter[data-chapter=interior] { --static-image:url('../assets/img/card-interior.webp'); }
+.static-experience .chapter[data-chapter=polish] { --static-image:url('../assets/img/card-polish.webp'); }
+.static-experience .chapter[data-chapter=ceramic] { --static-image:url('../assets/img/card-ceramic.webp'); }
+.static-experience .finale { position:relative; inset:auto; opacity:1; padding:70px var(--gutter); }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }

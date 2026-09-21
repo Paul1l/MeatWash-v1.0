@@ -1,0 +1,40 @@
+import { SERVICES } from './config.js';
+
+export function setupUI(goToStop) {
+ const abort=new AbortController(), options={signal:abort.signal};
+ const $=s=>document.querySelector(s);
+ const menu=$('#mobile-menu'), burger=$('#burger'), booking=$('#booking'), details=$('#service-dialog');
+ const closeMenu=()=>{ menu.hidden=true; burger.setAttribute('aria-expanded','false'); burger.setAttribute('aria-label','Открыть меню'); document.body.classList.remove('menu-open'); };
+ const openBooking=(membership=false)=>{
+   closeMenu(); details.close();
+   $('#booking-title').textContent=membership?'Meatwash Car Care Club':'Записаться';
+   booking.querySelector('p').textContent=membership?'Узнайте условия участия и доступные привилегии у администратора выбранной локации.':'Филиал, услуга и время выбираются в онлайн-записи.';
+   booking.querySelector('.btn--fill').hidden=membership;
+   if(!booking.open) booking.showModal();
+ };
+ burger.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');document.body.classList.toggle('menu-open',open);},options);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();},options);
+ document.addEventListener('click',e=>{
+  const control=e.target.closest('a,button'); if(!control)return;
+  if(control.hasAttribute('data-book')) return openBooking();
+  if(control.hasAttribute('data-membership')) return openBooking(true);
+  if(control.dataset.service){
+   e.preventDefault();
+   const service=SERVICES[control.dataset.service]; if(!service)return;
+   $('#service-label').textContent=service.label; $('#service-title').textContent=service.title;
+   $('#service-description').textContent=service.description;
+   $('#service-prices').replaceChildren(...service.prices.map(([name,price])=>{
+    const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');
+    dt.textContent=name;dd.textContent=`от ${price.toLocaleString('ru-RU')} ₽`;row.append(dt,dd);return row;
+   }));details.showModal();return;
+  }
+  if(control.dataset.sceneStop){e.preventDefault();closeMenu();goToStop(control.dataset.sceneStop);return;}
+  if(control.hasAttribute('data-scroll-next')){goToStop('next');return;}
+  const hash=control.getAttribute('href');
+  if(hash?.startsWith('#')){const target=document.getElementById(hash.slice(1));if(target){e.preventDefault();closeMenu();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});history.replaceState(null,'',hash);}}
+ },options);
+ for(const dialog of [booking,details]) dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();},options);
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-in');observer.unobserve(entry.target);}},{threshold:.1});
+ document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
+ return ()=>{abort.abort();observer.disconnect();};
+}
