@@ -21,13 +21,24 @@ for(const filename of await readdir(resolve(dist,'js'))){
   try{await stat(resolve(dist,'js',url));}catch{failures.push(`Missing module: ${url}`);}
  }
 }
-for(const name of ['style.css','cinematic.css']){
+for(const name of ['style.css','cinematic.css','catalog.css']){
  const css=await readFile(resolve(dist,'css',name),'utf8');
  for(const [,url] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)){
   try{await stat(resolve(dist,'css',url));}catch{failures.push(`Missing CSS asset: ${url}`);}
  }
 }
 const content=JSON.parse(await readFile(resolve(dist,'assets/meatwash-content.json')));
+assert.equal(content.programs.length,5);
+assert.equal(content.bodyTypes.length,4);
+assert.equal(content.groups.flatMap(group=>group.items).length,39);
+assert.deepEqual(content.programPrices,[[2150,2250,2450,2650],[2850,3150,3450,4250],[4950,5450,5950,6450],[6450,7450,8450,9450],[13950,14950,15950,16950]]);
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+for(const group of content.groups){
+ assert(ids.has('price-'+group.id),'Missing price group '+group.id);
+ for(const [name,price] of group.items)assert(html.includes(`<dt>${escape(name)}</dt><dd>${price.toLocaleString('ru-RU')} ₽</dd>`),'Missing or stale service '+name);
+}
+for(const prices of content.programPrices)assert(html.includes(`data-prices="${prices.join(',')}"`),'Stale body-type prices');
+assert.equal([...html.matchAll(/data-price-item/g)].length,39);
 const config=await import('data:text/javascript;base64,'+Buffer.from(await readFile(resolve(dist,'js/config.js'),'utf8')).toString('base64'));
 assert.deepEqual(Object.values(config.STOPS),[0,.2,.4,.6,.8,1]);
 assert.equal(config.CAMERA_STOPS.length,6);

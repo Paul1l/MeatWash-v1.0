@@ -13,6 +13,12 @@ export function setupUI(goToStop) {
    if(!booking.open) booking.showModal();
  };
  burger.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');document.body.classList.toggle('menu-open',open);},options);
+ document.querySelector('.body-types')?.addEventListener('change',event=>{
+  const input=event.target;if(input.name!=='body-type')return;
+  const index=Number(input.value);
+  document.querySelectorAll('[data-program-price]').forEach(price=>{price.textContent=Number(price.dataset.prices.split(',')[index]).toLocaleString('ru-RU')+' ₽';});
+  $('#body-price-label').textContent='Цены для типа кузова: '+input.closest('label').querySelector('span').textContent;
+ },options);
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();},options);
  document.addEventListener('click',e=>{
   const control=e.target.closest('a,button'); if(!control)return;
@@ -21,6 +27,7 @@ export function setupUI(goToStop) {
   if(control.dataset.service){
    e.preventDefault();
    const service=SERVICES[control.dataset.service]; if(!service)return;
+   $('#service-all-prices').href='#'+({body:'programs',interior:'price-interior',polish:'price-polish',ceramic:'price-protection'}[control.dataset.service]||'services');
    $('#service-label').textContent=service.label; $('#service-title').textContent=service.title;
    $('#service-description').textContent=service.description;
    $('#service-prices').replaceChildren(...service.prices.map(([name,price])=>{
@@ -31,7 +38,7 @@ export function setupUI(goToStop) {
   if(control.dataset.sceneStop){e.preventDefault();closeMenu();goToStop(control.dataset.sceneStop);return;}
   if(control.hasAttribute('data-scroll-next')){goToStop('next');return;}
   const hash=control.getAttribute('href');
-  if(hash?.startsWith('#')){const target=document.getElementById(hash.slice(1));if(target){e.preventDefault();closeMenu();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});history.replaceState(null,'',hash);}}
+  if(hash?.startsWith('#')){const target=document.getElementById(hash.slice(1));if(target){e.preventDefault();closeMenu();details.close();booking.close();if(target.tagName==='DETAILS')target.open=true;target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});history.replaceState(null,'',hash);}}
  },options);
  for(const dialog of [booking,details]) dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();},options);
  const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-in');observer.unobserve(entry.target);}},{threshold:.1});

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node serve.cjs",
     "check": "node scripts/check.mjs",
+    "catalog": "node scripts/catalog.mjs",
     "optimize": "node scripts/optimize.mjs"
   },
   "dependencies": {
