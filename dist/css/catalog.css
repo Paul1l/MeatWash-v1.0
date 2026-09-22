@@ -53,6 +53,13 @@
 .location__detail{font-size:12px;line-height:1.8;color:var(--ink-soft);margin:16px 0}
 .location__phone{display:block;font-size:14px;margin-bottom:20px}
 .location__book{margin-right:20px}
+.location__photo{position:relative;display:block;min-width:0}
+.location__photo img{position:absolute;inset:0;filter:saturate(.9) brightness(.96)}
+.location__photo--myasnitskaya img{object-position:48% 50%}
+.location__photo--technopark img{object-position:42% 62%}
+.location__photo>span{position:absolute;bottom:0;left:0;right:0;padding:42px 18px 18px;background:linear-gradient(transparent,rgba(8,8,8,.78));color:var(--ivory);font-size:11px;letter-spacing:.025em}
+.location__photo:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+@media(max-width:800px) and (orientation:portrait){.location__photo{height:260px}.location__photo--technopark img{object-position:50% 65%}}
 .service-all-prices{display:inline-block;margin:22px 0;font-size:12px}
 @media(max-width:1100px){.catalog__section{grid-template-columns:22% 1fr;gap:5%}.catalog__entry summary{gap:10px}.catalog__name{font-size:14px}.catalog__time{display:none}.program-entry summary{grid-template-columns:22px minmax(0,1fr) auto 14px}.visit-notes{gap:25px}}
 @media(max-width:800px){.catalog{padding:64px 20px}.catalog__heading{grid-template-columns:1fr;gap:24px;margin-bottom:44px}.catalog__heading>p{justify-self:start;font-size:13px;max-width:46ch}.catalog__section{grid-template-columns:1fr;gap:30px;padding-top:32px;margin-top:40px}.catalog__aside h3 br{display:none}.catalog__aside h3{font-size:30px}.catalog__aside h3 br::after{content:' '}.catalog__aside p{max-width:44ch}.catalog__expanded{padding-left:0}.program-includes{grid-template-columns:1fr}.catalog__entry summary{padding:22px 0}.catalog__price{font-size:13px}.catalog__prices>div{gap:18px;font-size:12px}.body-types{gap:6px}.body-types span{padding:9px 11px;font-size:11px}.catalog__extra{align-items:flex-start;flex-direction:column;gap:12px}.catalog__concierge{flex-direction:column;align-items:flex-start;gap:24px}.visit-notes{grid-template-columns:1fr;gap:28px;padding:20px 20px 60px}.catalog__count{font-size:10px}}

@@ -255,7 +255,7 @@
       "phone": "+7 (930) 035-23-25",
       "tel": "+79300352325",
       "map": "https://yandex.ru/maps/org/meat_wash/191686454110/",
-      "image": "loc-myasnitskaya.webp",
+      "image": "assets/img/studio-myasnitskaya-1200.webp",
       "desc": "Подземный паркинг в центре Москвы. Два часа закрытой парковки включены в визит.",
       "detail": "Wi-Fi и зона ожидания · Оплата из машины",
       "floor": "Подземный паркинг, −1 этаж",
@@ -274,7 +274,7 @@
       "phone": "+7 (932) 491-69-91",
       "tel": "+79324916991",
       "map": "https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/",
-      "image": "loc-technopark.webp",
+      "image": "assets/img/studio-technopark-1200.webp",
       "desc": "Детейлинг-центр полного цикла в ТЦ «Мегаполис». Полировка, керамика, оклейка и восстановление.",
       "detail": "Оклейка и бронирование · Порошковая покраска дисков",
       "floor": "ТЦ «Мегаполис», 1 этаж",
@@ -293,7 +293,23 @@
     "contacts": "https://meat-wash.vercel.app/adresa",
     "accessed": "2026-09-23",
     "detailing": "https://meat-wash.vercel.app/detailing",
-    "about": "https://meat-wash.vercel.app/o-nas"
+    "about": "https://meat-wash.vercel.app/o-nas",
+    "photos": [
+      {
+        "location": "Мясницкая",
+        "page": "https://yandex.ru/maps/org/meat_wash/191686454110/gallery/",
+        "image": "https://avatars.mds.yandex.net/get-altay/6310045/2a000001805e63fa3d9098889788fd0b22e0/XXXL",
+        "author": "Антонович Роман",
+        "date": "Апрель 2022"
+      },
+      {
+        "location": "Технопарк",
+        "page": "https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/gallery/",
+        "image": "https://avatars.mds.yandex.net/get-altay/18101536/2a0000019cc9be46fcc5fbf4b2e37841520a/XXXL",
+        "author": "Кирилл Бадаев ГЕОмаркетинг",
+        "date": "Март 2026"
+      }
+    ]
   },
   "bodyTypes": [
     "Седан",
