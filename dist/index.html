@@ -11,7 +11,6 @@
 <meta property="og:image" content="assets/img/og.webp">
 <link rel="preload" href="assets/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/hero-hq.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/cinematic.css">
@@ -46,15 +45,17 @@
 <!-- ============ CINEMATIC SCENE: hero → THE BODY ============ -->
 <section class="scene" id="scene" aria-label="Porsche 911 — больше, чем мойка">
   <div class="scene__sticky">
-    <div class="scene__poster" aria-hidden="true"><img src="assets/img/hero-hq.webp" width="1672" height="941" fetchpriority="high" alt=""></div>
-    <div class="scene__fallback" aria-hidden="true"><img src="assets/img/body.webp" loading="lazy" decoding="async" alt=""></div>
+    <div class="scene__poster" aria-hidden="true"><img data-static-src="assets/img/hero-hq.webp" width="1672" height="941" alt=""></div>
     <canvas id="porsche" aria-label="Porsche 911: камера приближается к деталям при прокрутке" role="img"></canvas>
+    <p class="scene__loading" role="status">Загружаем Porsche…</p>
     <div class="scene__shade" aria-hidden="true"></div>
     <a class="scene__skip" href="#services">Все услуги ↓</a>
     <!-- hero UI -->
     <div class="hero" data-ui="hero">
-      <h1 class="hero__title">Больше,<br>чем мойка</h1>
+      <p class="hero__eyebrow">CAR CARE CLUB</p>
+      <h1 class="hero__title">MEATWASH</h1>
       <p class="hero__sub">Уход, который сохраняет ценность</p>
+      <button class="btn btn--fill hero__booking" type="button" data-book>Записаться</button>
     </div>
     <div class="hero-bar" data-ui="bar">
       <div class="hero-bar__progress">

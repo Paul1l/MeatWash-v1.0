@@ -3,19 +3,18 @@ import {setupUI} from './ui.js';
 
 const $=s=>document.querySelector(s);
 const section=$('#scene'),canvas=$('#porsche'),poster=$('.scene__poster'),posterImage=$('.scene__poster img');
-const fallback=$('.scene__fallback'),fallbackImage=$('.scene__fallback img');
+const loading=$('.scene__loading');
 const hero=$('.hero'),bar=$('.hero-bar'),dot=$('.hero__dot'),header=$('#header'),finale=$('.finale');
 const chapters=[...document.querySelectorAll('[data-chapter]')],chapterNav=$('.chapter-nav'),skip=$('.scene__skip');
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),controller=new AbortController();
 const forceStatic=new URLSearchParams(location.search).get('motion')==='reduce';
-const state={progress:0};let scene=null,trigger=null,tween=null,staticMode=false,active=-1,lastImage='',destroyed=false;
+const state={progress:0};let scene=null,trigger=null,tween=null,staticMode=false,active=-1,destroyed=false;
 document.documentElement.dataset.viewport=String(innerWidth);
 let lcpObserver;
 if('PerformanceObserver' in window&&PerformanceObserver.supportedEntryTypes.includes('largest-contentful-paint')){
  lcpObserver=new PerformanceObserver(list=>{const last=list.getEntries().at(-1);if(last)document.documentElement.dataset.lcpMs=String(Math.round(last.startTime));});
  lcpObserver.observe({type:'largest-contentful-paint',buffered:true});
 }
-const images=['hero.webp','body.webp','card-interior.webp','card-polish.webp','card-ceramic.webp','hero.webp'];
 const isMobile=()=>innerWidth<=800&&innerHeight>innerWidth;
 const range=()=>Math.max(1,section.offsetHeight-innerHeight);
 
@@ -39,11 +38,8 @@ function apply(progress){
  const p=clamp(progress);state.progress=p;
  const intro=1-smooth(p,.008,.07);
  setVisibility(hero,intro);setVisibility(bar,1-smooth(p,.015,.09));setVisibility(dot,intro);
- const blend=smooth(p,.026,.102);
- poster.style.opacity=(1-blend).toFixed(3);posterImage.style.transform=`scale(${1+smooth(p,0,.11)*.45})`;
- canvas.style.opacity=scene?blend:0;fallback.style.opacity=scene?0:blend;
+ canvas.style.opacity=scene?'1':'0';
  const index=Math.min(5,Math.floor(p*5+.5));
- if(!scene&&images[index]!==lastImage){lastImage=images[index];fallbackImage.src=`assets/img/${lastImage}`;}
  section.firstElementChild.style.setProperty('--shade',String(smooth(p,.06,.15)*(1-smooth(p,.90,.97))));
  for(let i=0;i<chapters.length;i++){
   const center=(i+1)/5,d=Math.abs(p-center);
@@ -58,7 +54,7 @@ function apply(progress){
   chapterNav.querySelectorAll('button').forEach((button,i)=>{if(i+1===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');});
  }
  header.classList.toggle('is-solid',p>.09||scrollY>range());
- if(scene&&p>.016&&scrollY<section.offsetTop+section.offsetHeight)scene.update(p);
+ if(scene&&scrollY<section.offsetTop+section.offsetHeight)scene.update(p);
  section.dataset.progress=p.toFixed(4);
 }
 function staticExperience(){
@@ -66,6 +62,7 @@ function staticExperience(){
  tween?.kill();trigger?.kill();scene?.dispose();scene=null;
  for(const el of [...chapters,hero,finale]){el.style.opacity='1';el.style.transform='';el.inert=false;el.setAttribute('aria-hidden','false');}
  poster.style.opacity='1';posterImage.style.transform='';
+ posterImage.src=posterImage.dataset.staticSrc;loading.hidden=true;
  canvas.style.opacity='0';section.dataset.mode=(motion.matches||forceStatic)?'reduced-motion':'static-fallback';
 }
 async function start(){
@@ -75,8 +72,7 @@ async function start(){
  tween=gsap.to(state,{progress:1,ease:'none',onUpdate:()=>apply(state.progress),scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:1.35,invalidateOnRefresh:true}});
  trigger=tween.scrollTrigger;apply(clamp(scrollY/range()));
  try{
-  // Give the reference hero a committed paint before parsing and uploading the GLB.
-  await document.fonts.ready;
+  // Paint the interface first; the opening camera is already the live Porsche scene.
   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   const started=performance.now();
   // Fetch the model alongside the scene module, after the hero has painted.
@@ -84,7 +80,7 @@ async function start(){
   const {createScene}=await import('./scene.bundle.js');const loaded=await createScene(canvas);
   section.dataset.loadMs=String(Math.round(performance.now()-started));
   if(destroyed||motion.matches){loaded.dispose();return;}
-  scene=loaded;section.dataset.mode='webgl';apply(state.progress);
+  scene=loaded;loading.hidden=true;section.dataset.mode='webgl';apply(state.progress);
  }catch(error){
   console.warn('Porsche scene unavailable; static service photographs remain available.',error);
   staticExperience();

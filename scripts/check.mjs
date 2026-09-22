@@ -31,6 +31,8 @@ const content=JSON.parse(await readFile(resolve(dist,'assets/meatwash-content.js
 const config=await import('data:text/javascript;base64,'+Buffer.from(await readFile(resolve(dist,'js/config.js'),'utf8')).toString('base64'));
 assert.deepEqual(Object.values(config.STOPS),[0,.2,.4,.6,.8,1]);
 assert.equal(config.CAMERA_STOPS.length,6);
+assert.deepEqual(config.CAMERA_STOPS[0],config.CAMERA_STOPS[5],'Hero must open on the final Porsche overview');
+assert(!/<img[^>]*\ssrc="assets\/img\/hero-hq\.webp"/.test(html),'Photographic hero must not load in normal mode');
 assert.equal(Object.keys(config.SERVICES).length,4);
 const sourcePrices=new Set([...content.programs.map(x=>x[1]),...content.groups.flatMap(g=>g.items.map(x=>x[1]))]);
 for(const service of Object.values(config.SERVICES))for(const [,price] of service.prices)assert(sourcePrices.has(price),'Unsupported price '+price);
