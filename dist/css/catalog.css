@@ -1,4 +1,10 @@
 /* Editorial price list: native disclosures, no dependency on the 3D scene. */
+.strip .card>img{filter:saturate(.78);will-change:auto}
+.strip .card--interior>img{object-position:58% 54%}
+.strip .card--polish>img{object-position:50% 60%}
+.strip .card--ceramic>img{object-position:50% 75%;filter:saturate(.45) brightness(.8)}
+.strip .card::after{background:linear-gradient(180deg,rgba(8,8,8,.65),transparent 38%,transparent 60%,rgba(8,8,8,.7))}
+.strip .card__caption{color:var(--ivory)}
 .catalog{padding:110px var(--gutter);background:#0d0b0a;color:var(--ivory)}
 .catalog [id],.catalog{scroll-margin-top:calc(var(--header-h) + 24px)}
 .catalog__heading{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end;margin-bottom:80px}

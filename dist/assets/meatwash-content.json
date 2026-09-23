@@ -309,6 +309,26 @@
         "author": "Кирилл Бадаев ГЕОмаркетинг",
         "date": "Март 2026"
       }
+    ],
+    "servicePhotos": [
+      {
+        "service": "interior",
+        "image": "https://avatars.mds.yandex.net/get-altay/16416536/2a0000019d4db2ffef7a1e3c3d530c37b8db/XXXL",
+        "page": "https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/gallery/",
+        "usage": "Фото работ Meatwash из предоставленной галереи"
+      },
+      {
+        "service": "polish",
+        "image": "https://avatars.mds.yandex.net/get-altay/18806283/2a0000019d4da42c11a634fe852935163783/XXXL",
+        "page": "https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/gallery/",
+        "usage": "Фото работ Meatwash из предоставленной галереи"
+      },
+      {
+        "service": "protection",
+        "image": "https://images.squarespace-cdn.com/content/v1/65c44a9ec8ca366f40366f39/5243084a-b160-4458-ad7d-82fa527609eb/Ceramic%2BCoating%2BCover.jpg",
+        "page": "https://www.shinelabsautodetail.com/ceramic-coatings",
+        "usage": "Иллюстрация гидрофобного эффекта, не работа Meatwash"
+      }
     ]
   },
   "bodyTypes": [
