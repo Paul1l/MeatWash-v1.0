@@ -256,9 +256,9 @@ body.menu-open .burger span:last-child { transform: translateY(-3.5px) rotate(-4
   background: var(--ivory-2); color: var(--ink); min-height: clamp(320px, 28.5vw, 420px); position: relative; z-index: 2;
 }
 .about__photo { position: relative; align-self: stretch; overflow: hidden; }
-.about__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; filter: grayscale(1) contrast(1.05) sepia(.12); transform: scale(1.06); transition: transform 1.4s var(--ease); }
+.about__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; filter: grayscale(1) sepia(.06); transform: none; }
 .about__photo.is-in img { transform: none; }
-.about__photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(236, 229, 216, 0) 60%, var(--ivory-2) 100%); }
+.about__photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(236, 229, 216, 0) 88%, var(--ivory-2) 100%); }
 .about__copy { padding: clamp(36px, 4vw, 60px) clamp(28px, 4vw, 64px) clamp(36px, 4vw, 60px) clamp(28px, 5.7vw, 84px); }
 .about__copy .brand__name { display: block; font-size: clamp(30px, 2.9vw, 44px); letter-spacing: .02em; }
 .about__copy .brand__sub { display: block; margin-top: clamp(10px, 1.1vw, 16px); font-size: clamp(8px, .8vw, 12px); letter-spacing: .32em; }
@@ -409,7 +409,7 @@ body.menu-open .burger span:last-child { transform: translateY(-3.5px) rotate(-4
   .chapter .btn { margin-top: 16px; }
   .about { grid-template-columns: 1fr; }
   .about__photo { grid-row: auto; height: 240px; }
-  .about__photo::after { background: linear-gradient(180deg, rgba(236, 229, 216, 0) 55%, var(--ivory-2)); }
+  .about__photo::after { background: linear-gradient(180deg, rgba(236, 229, 216, 0) 90%, var(--ivory-2)); }
   .about__copy { padding: 28px 16px 8px; }
   .about__stats { grid-column: auto; margin: 0 16px; padding: 24px 0 32px; flex-direction: row; gap: 14px; }
   .about__stats dd { white-space: normal; font-size: 10px; }
