@@ -15,7 +15,7 @@ export async function createScene(canvas){
  renderer.transmissionResolutionScale=.5;
  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.98;
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
- const scene=new THREE.Scene();scene.background=new THREE.Color('#000000');scene.fog=new THREE.FogExp2('#000000',.014);
+ const scene=new THREE.Scene();scene.background=new THREE.Color('#080808');scene.fog=new THREE.FogExp2('#080808',.014);
  const camera=new THREE.PerspectiveCamera(35,1,.018,80);
  const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
  const [garage,gltf]=await Promise.all([buildGarage(scene,renderer),loader.loadAsync('./assets/porsche-930-optimized.glb')]);
