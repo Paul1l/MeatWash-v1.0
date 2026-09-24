@@ -7,7 +7,11 @@
     "start": "node serve.cjs",
     "check": "node scripts/check.mjs",
     "catalog": "node scripts/catalog.mjs",
-    "optimize": "node scripts/optimize.mjs"
+    "optimize": "node scripts/optimize.mjs",
+    "bundle": "node scripts/bundle.mjs",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "duotone": "node scripts/duotone.mjs",
+    "brand-assets": "node scripts/brand-assets.mjs"
   },
   "dependencies": {
     "gsap": "3.13.0"

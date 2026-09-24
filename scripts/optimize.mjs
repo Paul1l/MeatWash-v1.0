@@ -8,7 +8,7 @@ import {dedup,reorder} from '@gltf-transform/functions';
 import {MeshoptEncoder,MeshoptDecoder} from 'meshoptimizer';
 import sharp from 'sharp';
 import woff2 from 'wawoff2';
-import {build} from 'esbuild';
+import {bundleScene} from './bundle.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const asset=p=>resolve(root,'dist/assets',p);
@@ -44,10 +44,10 @@ for(const [i,mesh] of document.getRoot().listMeshes().entries()){
   }
  }
 }
-for(const font of ['prata','manrope']){
+for(const font of ['manrope']){
  await writeFile(asset(`fonts/${font}.woff2`),await woff2.compress(await readFile(asset(`fonts/${font}.ttf`))));
 }
 await copyFile(resolve(root,'node_modules/meshoptimizer/LICENSE.md'),resolve(root,'dist/vendor/LICENSE-MESHOPT.txt'));
-await build({entryPoints:[resolve(root,'dist/js/scene.js')],outfile:resolve(root,'dist/js/scene.bundle.js'),bundle:true,minify:true,format:'esm',target:'es2022',legalComments:'linked',alias:{'three/addons':resolve(root,'dist/vendor/examples/jsm'),'three':resolve(root,'dist/vendor/build/three.module.js')}});
+await bundleScene();
 const old=(await readFile(asset('porsche-930.glb'))).length,optimized=(await readFile(asset('porsche-930-optimized.glb'))).length;
 console.log(`Porsche: ${old} → ${optimized} bytes (${Math.round((1-optimized/old)*100)}% smaller). Geometry round-trip: identical.`);

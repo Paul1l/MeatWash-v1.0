@@ -1,0 +1,46 @@
+name: Проверка
+
+# Идёт на каждый pull request и на каждую ветку, кроме main:
+# в main публикацией и проверкой занимается pages.yml.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Ресурсы, ссылки и данные
+        run: npm run check
+
+      - name: Бандл сцены собран из текущего исходника
+        run: npm run check:bundle
+
+      # Проверяющему не нужно поднимать проект у себя: папка сайта
+      # прикладывается к запуску, её можно скачать и открыть локально.
+      - name: Приложить собранный сайт
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-${{ github.sha }}
+          path: dist
+          retention-days: 14
