@@ -1,0 +1,24 @@
+name: Задача на доработку
+description: Новый блок, правка текста, изменение поведения
+labels: ["доработка"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Что нужно
+      description: Опишите результат так, как его увидит посетитель сайта.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Откуда требование
+      placeholder: Задача на доске, просьба клиента, пункт из брендбука
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: По чему поймём, что готово
+    validations:
+      required: true

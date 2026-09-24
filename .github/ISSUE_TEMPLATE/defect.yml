@@ -1,0 +1,39 @@
+name: Дефект на сайте
+description: Что-то выглядит или работает не так
+labels: ["дефект"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Где
+      placeholder: Раздел или адрес страницы, например «Примерочная» или /#services
+    validations:
+      required: true
+  - type: input
+    id: width
+    attributes:
+      label: Ширина экрана и браузер
+      placeholder: 390, Safari на iPhone
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Что нажать, чтобы увидеть
+      placeholder: |
+        1. Открыть главную
+        2. Нажать «Примерочная»
+        3. Выбрать «Полировка кузова»
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Что ожидалось и что получилось
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Ошибки в консоли браузера
+      description: Если есть — вставьте текст. Если нет — так и напишите.

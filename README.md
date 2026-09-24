@@ -2,6 +2,8 @@
 
 Публичный сайт: https://paul1l.github.io/MeatWash-v1.0/
 
+Совместная разработка: [CONTRIBUTING.md](CONTRIBUTING.md) — ветки, проверки перед pull request и ловушка с бандлом сцены.
+
 GitHub Actions публикует содержимое `dist` через `.github/workflows/pages.yml` при каждом push в `main`. В Settings → Pages источник публикации — GitHub Actions; корень репозитория не является папкой сайта.
 
 Готовый статический сайт по предоставленному `meatwash-site.zip` и скриншотам, с новой Three.js-сценой Porsche и GSAP ScrollTrigger.
