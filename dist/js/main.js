@@ -1,5 +1,6 @@
 import {STOPS,clamp,smooth} from './config.js';
 import {setupUI} from './ui.js';
+import {setupConfigurator} from './configurator.js';
 
 const $=s=>document.querySelector(s);
 const section=$('#scene'),canvas=$('#porsche'),poster=$('.scene__poster'),posterImage=$('.scene__poster img');
@@ -27,6 +28,23 @@ function goToStop(key){
  if(!(key in STOPS))return;
  scrollTo({top:section.offsetTop+range()*STOPS[key],behavior:motion.matches?'instant':'smooth'});
 }
+// Примерочная живёт поверх сцены и на время работы забирает управление моделью
+// у прокрутки: ScrollTrigger при этом остаётся живым, просто мы не даём ему
+// перерисовывать машину, пока открыт конфигуратор.
+const cfgMount=document.createElement('div');
+cfgMount.className='cfg-mount';
+section.firstElementChild.append(cfgMount);
+const configurator=setupConfigurator({
+ mount:cfgMount,
+ getScene:()=>scene,
+ onOpen:()=>{document.querySelector('[data-cfg-open]')?.setAttribute('aria-expanded','true');},
+ onClose:()=>{document.querySelector('[data-cfg-open]')?.setAttribute('aria-expanded','false');if(scene)scene.update(state.progress,true);},
+});
+document.addEventListener('click',e=>{
+ const open=e.target.closest('[data-cfg-open]');
+ if(open){e.preventDefault();configurator.isOpen?configurator.close():configurator.open();}
+},{signal:controller.signal});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&configurator.isOpen)configurator.close();},{signal:controller.signal});
 const cleanupUI=setupUI(goToStop);
 
 function setVisibility(el,amount,interactive=true){
@@ -54,7 +72,7 @@ function apply(progress){
   chapterNav.querySelectorAll('button').forEach((button,i)=>{if(i+1===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');});
  }
  header.classList.toggle('is-solid',p>.09||scrollY>range());
- if(scene&&scrollY<section.offsetTop+section.offsetHeight)scene.update(p);
+ if(scene&&!configurator.isOpen&&scrollY<section.offsetTop+section.offsetHeight)scene.update(p);
  section.dataset.progress=p.toFixed(4);
 }
 function staticExperience(){
@@ -94,6 +112,6 @@ addEventListener('scroll',()=>header.classList.toggle('is-solid',scrollY>90),{pa
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)scene?.resize();},{signal:controller.signal});
 motion.addEventListener('change',()=>{if(motion.matches)staticExperience();else location.reload();},{signal:controller.signal});
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();staticExperience();},{signal:controller.signal});
-addEventListener('pagehide',event=>{if(event.persisted)return;destroyed=true;cancelAnimationFrame(resizeFrame);tween?.kill();trigger?.kill();scene?.dispose();lcpObserver?.disconnect();cleanupUI();controller.abort();},{once:true});
+addEventListener('pagehide',event=>{if(event.persisted)return;destroyed=true;cancelAnimationFrame(resizeFrame);tween?.kill();trigger?.kill();scene?.dispose();lcpObserver?.disconnect();cleanupUI();configurator.destroy();controller.abort();},{once:true});
 document.fonts.ready.then(()=>window.ScrollTrigger?.refresh());
 if(document.readyState==='loading')addEventListener('DOMContentLoaded',start,{once:true});else start();

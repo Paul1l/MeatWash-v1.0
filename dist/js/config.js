@@ -15,3 +15,16 @@ export const CAMERA_STOPS = [
 ];
 export const clamp = (v,a=0,b=1) => Math.min(b,Math.max(a,v));
 export const smooth = (v,a,b) => { const x=clamp((v-a)/(b-a)); return x*x*(3-2*x); };
+
+// Примерочная: какая услуга что делает с моделью.
+// cam — точка на пути камеры, откуда эффект лучше всего видно;
+// остальные поля — доли эффектов, которые складываются при выборе нескольких услуг.
+export const SERVICE_VIEW = {
+  body:     { cam: .06, wash: 1, gloss: 0,  interior: 0, water: 0 },
+  interior: { cam: .42, wash: 0, gloss: 0,  interior: 1, water: 0 },
+  polish:   { cam: .62, wash: 0, gloss: 1,  interior: 0, water: 0 },
+  ceramic:  { cam: .84, wash: 0, gloss: .6, interior: 0, water: .84 },
+};
+
+// Базовое состояние примерочной — грязная нетронутая машина.
+export const SERVICE_BASE = { cam: .06, wash: 0, gloss: 0, interior: 0, water: 0 };

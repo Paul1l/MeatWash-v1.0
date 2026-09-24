@@ -65,6 +65,9 @@ export async function createScene(canvas){
  canvas.dataset.setupMs=String(Math.round(performance.now()-loadingStarted));
  renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
  let current=0,lastWidth=0,lastHeight=0,disposed=false,frameCount=0,lastFrame=0;
+ // Режим примерочной: услуги выбираются вручную, эффекты складываются.
+ // null — обычный режим, всё как раньше ведёт прокрутка.
+ let manual=null;
  const renderSamples=[],intervalSamples=[];
  const median=samples=>samples.length?[...samples].sort((a,b)=>a-b)[Math.floor(samples.length/2)]:0;
  const cp=new THREE.Vector3(),look=new THREE.Vector3(),nextLook=new THREE.Vector3();
@@ -72,7 +75,8 @@ export async function createScene(canvas){
  function update(progress,force=false){
   if(disposed||document.hidden)return;current=progress;
   if(!lastWidth||force)resize();
-  const raw=clamp(progress)*5,index=Math.min(4,Math.floor(raw));
+  const camAt=manual?manual.cam:progress;
+  const raw=clamp(camAt)*5,index=Math.min(4,Math.floor(raw));
   const t=smooth(raw-index,.13,.87),a=CAMERA_STOPS[index],b=CAMERA_STOPS[index+1];
   let angleA=Math.atan2(a.p[0],a.p[2]),delta=Math.atan2(b.p[0],b.p[2])-angleA;
   if(delta>Math.PI)delta-=Math.PI*2;if(delta< -Math.PI)delta+=Math.PI*2;
@@ -80,18 +84,20 @@ export async function createScene(canvas){
   cp.set(Math.sin(angle)*radius,THREE.MathUtils.lerp(a.p[1],b.p[1],t),Math.cos(angle)*radius);
   look.fromArray(a.t).lerp(nextLook.fromArray(b.t),t);camera.fov=THREE.MathUtils.lerp(a.f,b.f,t);
   if(mobile()){
-   const detail=smooth(progress,.04,.18)*(1-smooth(progress,.88,.98));
+   const detail=smooth(camAt,.04,.18)*(1-smooth(camAt,.88,.98));
    cp.sub(look).multiplyScalar(THREE.MathUtils.lerp(1.65,1.18,detail)).add(look);
    camera.fov=THREE.MathUtils.lerp(42,55,detail);camera.setViewOffset(lastWidth,lastHeight,0,lastHeight*.18,lastWidth,lastHeight);
   } else camera.setViewOffset(lastWidth,lastHeight,-lastWidth*.12,0,lastWidth,lastHeight);
   camera.position.copy(cp);camera.lookAt(look);camera.updateProjectionMatrix();
-  const inside=smooth(progress,.30,.37)*(1-smooth(progress,.44,.50));
+  const inside=manual?manual.interior:smooth(progress,.30,.37)*(1-smooth(progress,.44,.50));
   glass.forEach(o=>o.material.opacity=1-inside*.985);
-  const polish=smooth(progress,.535,.653),polishChapter=smooth(progress,.47,.52)*(1-smooth(progress,.68,.70));
-  finish.value=1-polishChapter*(1-polish);clean.value=smooth(progress,.095,.245);
+  const polish=manual?manual.gloss:smooth(progress,.535,.653);
+  const polishChapter=manual?1:smooth(progress,.47,.52)*(1-smooth(progress,.68,.70));
+  finish.value=1-polishChapter*(1-polish);
+  clean.value=manual?manual.wash:smooth(progress,.095,.245);
   paint.roughness=THREE.MathUtils.lerp(.21,.13,polish);paint.clearcoatRoughness=THREE.MathUtils.lerp(.065,.026,polish);
   garage.reflectionLight.position.set(THREE.MathUtils.lerp(-1,2.4,polish),2.5,-1.3);
-  water.update(progress);
+  water.update(manual?manual.water:progress);
   const time=performance.now();renderer.render(scene,camera);
   const duration=performance.now()-time;renderSamples.push(duration);if(renderSamples.length>60)renderSamples.shift();
   if(lastFrame&&time-lastFrame<200){intervalSamples.push(time-lastFrame);if(intervalSamples.length>60)intervalSamples.shift();}
@@ -104,7 +110,7 @@ export async function createScene(canvas){
  await renderer.compileAsync(scene,camera);
  canvas.dataset.compileMs=String(Math.round(performance.now()-loadingStarted));
  update(0,true);
- return {update,resize:()=>update(current,true),stats:()=>({drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures,geometries:renderer.info.memory.geometries}),dispose(){
+ return {update,setManual(state){manual=state;update(current,true);},resize:()=>update(current,true),stats:()=>({drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures,geometries:renderer.info.memory.geometries}),dispose(){
   if(disposed)return;disposed=true;water.dispose();garage.dispose();
   const textures=new Set(),materials=new Set(),geometries=new Set();
   scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material]){materials.add(m);Object.values(m).forEach(v=>{if(v?.isTexture)textures.add(v);});}});

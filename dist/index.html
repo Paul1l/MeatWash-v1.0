@@ -14,6 +14,7 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/cinematic.css">
+<link rel="stylesheet" href="css/configurator.css">
 <link rel="stylesheet" href="css/catalog.css">
 <script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script>
 </head>
@@ -23,8 +24,7 @@
 <!-- ============ HEADER ============ -->
 <header class="header" id="header">
   <a class="brand" href="#top" aria-label="MEATWASH — на главную">
-    <span class="brand__name">MEATWASH</span>
-    <span class="brand__sub">CAR CARE CLUB</span>
+    <img class="brand__logo" src="assets/brand/Horizontal_Logo.svg" alt="MEATWASH Car Care Club" width="2520" height="654">
   </a>
   <nav class="nav" aria-label="Основная навигация">
     <a href="#services">Услуги</a>
@@ -51,6 +51,7 @@
     <p class="scene__loading" role="status">Загружаем Porsche…</p>
     <div class="scene__shade" aria-hidden="true"></div>
     <a class="scene__skip" href="#services">Все услуги ↓</a>
+    <button class="scene__cfg" type="button" data-cfg-open aria-expanded="false">Примерочная</button>
     <!-- hero UI -->
     <div class="hero" data-ui="hero">
       <p class="hero__eyebrow">CAR CARE CLUB</p>
@@ -177,8 +178,7 @@
     <img src="assets/img/about-restored-1448.webp" srcset="assets/img/about-restored-800.webp 800w, assets/img/about-restored-1448.webp 1448w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 50vw, 36vw" alt="Классический Porsche 911 Targa с номером MEATWASH, улучшенный чёрно-белый кадр" width="1448" height="1086" loading="lazy" decoding="async">
   </div>
   <div class="about__copy">
-    <span class="brand__name brand__name--dark" id="about-title">MEATWASH</span>
-    <span class="brand__sub brand__sub--dark">CAR CARE CLUB</span>
+    <img class="about__logo" id="about-title" src="assets/brand/Main_Logo_black.svg" alt="MEATWASH Car Care Club" width="1480" height="1301" loading="lazy" decoding="async">
     <p>Ручной уход за автомобилем в Москве. Подбираем химию под покрытие, согласуем работы на приёмке и проверяем результат перед выдачей.</p>
     <a class="btn btn--ghost btn--ink" href="#membership">О клубе</a>
   </div>
@@ -237,7 +237,7 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer" id="contacts">
   <div class="footer__row">
-    <a class="brand" href="#top"><span class="brand__name">MEATWASH</span><span class="brand__sub">CAR CARE CLUB</span></a>
+    <a class="brand" href="#top"><img class="brand__logo brand__logo--footer" src="assets/brand/Horizontal_Logo.svg" alt="MEATWASH Car Care Club" width="2520" height="654" loading="lazy" decoding="async"></a>
     <nav class="footer__nav" aria-label="Навигация в подвале">
       <a href="#services">Услуги</a><a href="#locations">Локации</a><a href="#club">О клубе</a><a href="#contacts">Контакты</a>
     </nav>

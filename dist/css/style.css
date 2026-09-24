@@ -444,3 +444,8 @@ body.menu-open .burger span:last-child { transform: translateY(-3.5px) rotate(-4
   .about__photo img { transform: none; }
   .membership__card img { transform: none; opacity: 1; }
 }
+
+/* Фирменный знак из логобука вместо набранного слова. */
+.brand__logo { display: block; height: clamp(26px, 2.4vw, 34px); width: auto; }
+.brand__logo--footer { height: clamp(30px, 2.8vw, 40px); }
+.about__logo { display: block; width: clamp(150px, 15vw, 220px); height: auto; margin-bottom: clamp(14px, 1.6vw, 22px); }

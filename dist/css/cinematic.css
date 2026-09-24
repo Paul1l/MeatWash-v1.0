@@ -51,6 +51,7 @@ html { scroll-behavior:auto; }
 .service-prices dd { white-space:nowrap; }
 .service-dialog .btn { width:100%; }
 body:has(dialog[open]) { overflow:hidden; }
+body.menu-open { overflow:hidden; }
 .credits-link { display:inline-block; padding:0 4px; }
 .dialog::backdrop { backdrop-filter:none; }
 .location__photo img { filter:none; }
@@ -127,3 +128,7 @@ body:has(dialog[open]) { overflow:hidden; }
 .static-experience .chapter[data-chapter=ceramic] { --static-image:url('../assets/img/card-ceramic.webp'); }
 .static-experience .finale { position:relative; inset:auto; opacity:1; padding:70px var(--gutter); }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+
+@media (max-width: 640px) {
+  .brand__logo { height: 24px; }
+}

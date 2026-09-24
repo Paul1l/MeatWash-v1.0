@@ -20,6 +20,7 @@ export function setupUI(goToStop) {
   $('#body-price-label').textContent='Цены для типа кузова: '+input.closest('label').querySelector('span').textContent;
  },options);
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();},options);
+ document.addEventListener('pointerdown',function closeOnOutside(e){ if(menu.hidden) return; if(menu.contains(e.target)||burger.contains(e.target)) return; closeMenu(); },options);
  document.addEventListener('click',e=>{
   const control=e.target.closest('a,button'); if(!control)return;
   if(control.hasAttribute('data-book')) return openBooking();
