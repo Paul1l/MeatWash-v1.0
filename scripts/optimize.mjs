@@ -44,7 +44,7 @@ for(const [i,mesh] of document.getRoot().listMeshes().entries()){
   }
  }
 }
-for(const font of ['prata','manrope']){
+for(const font of ['manrope']){
  await writeFile(asset(`fonts/${font}.woff2`),await woff2.compress(await readFile(asset(`fonts/${font}.ttf`))));
 }
 await copyFile(resolve(root,'node_modules/meshoptimizer/LICENSE.md'),resolve(root,'dist/vendor/LICENSE-MESHOPT.txt'));
