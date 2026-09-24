@@ -3,17 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#080808">
 <title>MEATWASH — Car Care Club · Москва</title>
 <meta name="description" content="MEATWASH Car Care Club — премиальный детейлинг в Москве. Ручная мойка, химчистка салона, полировка, керамическая защита. Мясницкая и Технопарк.">
 <meta property="og:title" content="MEATWASH — Больше, чем мойка">
 <meta property="og:description" content="Уход, который сохраняет ценность. Car Care Club в центре Москвы.">
-<meta property="og:image" content="assets/img/og-brand.webp">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image" content="assets/img/og.webp">
+<link rel="preload" href="assets/fonts/arsenal-sc-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="assets/favicon.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/cinematic.css">
 <link rel="stylesheet" href="css/configurator.css">
@@ -26,7 +24,7 @@
 <!-- ============ HEADER ============ -->
 <header class="header" id="header">
   <a class="brand" href="#top" aria-label="MEATWASH — на главную">
-    <img class="brand__emblem" src="assets/brand/Bull_Logo.svg" alt="MEATWASH Car Care Club" width="1097" height="800">
+    <img class="brand__logo" src="assets/brand/Horizontal_Logo.svg" alt="MEATWASH Car Care Club" width="2520" height="654">
   </a>
   <nav class="nav" aria-label="Основная навигация">
     <a href="#services">Услуги</a>
@@ -48,7 +46,7 @@
 <!-- ============ CINEMATIC SCENE: hero → THE BODY ============ -->
 <section class="scene" id="scene" aria-label="Porsche 911 — больше, чем мойка">
   <div class="scene__sticky">
-    <div class="scene__poster" aria-hidden="true"><img data-static-src="assets/img/hero-hq-wine.webp" width="1672" height="941" alt=""></div>
+    <div class="scene__poster" aria-hidden="true"><img data-static-src="assets/img/hero-hq.webp" width="1672" height="941" alt=""></div>
     <canvas id="porsche" aria-label="Porsche 911: камера приближается к деталям при прокрутке" role="img"></canvas>
     <p class="scene__loading" role="status">Загружаем Porsche…</p>
     <div class="scene__shade" aria-hidden="true"></div>
@@ -56,7 +54,8 @@
     <button class="scene__cfg" type="button" data-cfg-open aria-expanded="false">Примерочная</button>
     <!-- hero UI -->
     <div class="hero" data-ui="hero">
-      <h1 class="hero__title"><img class="hero__logo" src="assets/brand/Main_Logo.svg" alt="MEATWASH Car Care Club, 2021" width="1480" height="1301"></h1>
+      <p class="hero__eyebrow">CAR CARE CLUB</p>
+      <h1 class="hero__title">MEATWASH</h1>
       <p class="hero__sub">Уход, который сохраняет ценность</p>
       <button class="btn btn--fill hero__booking" type="button" data-book>Записаться</button>
     </div>
@@ -71,13 +70,13 @@
         <a class="thumb" href="#scene" data-scene-stop="interior" aria-label="Салон"><img src="assets/img/thumb-interior.webp" alt="" width="255" height="135" loading="lazy"></a>
         <a class="thumb" href="#scene" data-scene-stop="polish" aria-label="Полировка"><img src="assets/img/thumb-polish.webp" alt="" width="255" height="135" loading="lazy"></a>
       </div>
-      <button class="hero-bar__scroll" type="button" data-scroll-next lang="en">SCROLL</button>
+      <button class="hero-bar__scroll" type="button" data-scroll-next>SCROLL</button>
     </div>
     <button class="hero__dot" type="button" data-scroll-next aria-label="Листать дальше"><i></i></button>
 
     <article class="chapter" data-chapter="body" aria-hidden="true" inert>
       <div class="chapter__index"><span>01</span><span>Кузов</span></div>
-      <h2 class="chapter__title" lang="en">The<span class="chapter__break"> </span>Body</h2>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Body</h2>
       <span class="chapter__kicker">Мойка</span>
       <p class="chapter__lead">Чистота — основа характера</p>
       <p class="chapter__text">2–3-фазная ручная мойка, которая раскрывает настоящий цвет.</p>
@@ -85,7 +84,7 @@
     </article>
     <article class="chapter" data-chapter="interior" aria-hidden="true" inert>
       <div class="chapter__index"><span>02</span><span>Салон</span></div>
-      <h2 class="chapter__title" lang="en">The<span class="chapter__break"> </span>Interior</h2>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Interior</h2>
       <span class="chapter__kicker">Химчистка салона</span>
       <p class="chapter__lead">Красота изнутри</p>
       <p class="chapter__text">Салон должен выглядеть так, будто в нём ещё никто не ездил.</p>
@@ -93,7 +92,7 @@
     </article>
     <article class="chapter" data-chapter="polish" aria-hidden="true" inert>
       <div class="chapter__index"><span>03</span><span>Полировка</span></div>
-      <h2 class="chapter__title" lang="en">The<span class="chapter__break"> </span>Reflection</h2>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Reflection</h2>
       <span class="chapter__kicker">Полировка кузова</span>
       <p class="chapter__lead">Свет показывает всё.</p>
       <p class="chapter__text">Полировка кузова и восстановление глубины цвета.</p>
@@ -101,14 +100,14 @@
     </article>
     <article class="chapter" data-chapter="ceramic" aria-hidden="true" inert>
       <div class="chapter__index"><span>04</span><span>Керамика</span></div>
-      <h2 class="chapter__title" lang="en">The<span class="chapter__break"> </span>Protection</h2>
+      <h2 class="chapter__title">The<span class="chapter__break"> </span>Protection</h2>
       <span class="chapter__kicker">Керамическая защита</span>
       <p class="chapter__lead">Сохранить безупречность</p>
       <p class="chapter__text">Глубина цвета. Защита поверхности.</p>
       <button class="btn btn--ghost" type="button" data-service="ceramic">Подробнее <span aria-hidden="true">→</span></button>
     </article>
     <div class="finale" aria-hidden="true" inert>
-      <p class="finale__mark"><img class="finale__logo" src="assets/brand/Main_Logo.svg" alt="MEATWASH Car Care Club" width="1480" height="1301" loading="lazy" decoding="async"></p>
+      <span class="eyebrow">CAR CARE CLUB</span><h2>MEATWASH</h2>
       <p>Уход, который сохраняет ценность</p>
       <button class="btn btn--fill" type="button" data-book>Записаться</button>
     </div>
@@ -124,29 +123,29 @@
 
 <!-- ============ 02 / 03 / 04 ============ -->
 <section class="strip" id="service-preview" aria-label="Детали ухода">
-  <button class="card card--interior" id="card-interior" type="button" data-service="interior" aria-haspopup="dialog">
-    <img src="assets/img/service-interior-1280-wine.webp" srcset="assets/img/service-interior-640-wine.webp 640w, assets/img/service-interior-1280-wine.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Мастер Meatwash очищает кожаную дверную карту и салон автомобиля" width="1280" height="852" loading="lazy" decoding="async">
+  <a class="card card--interior" id="card-interior" href="#service-dialog" data-service="interior">
+    <img src="assets/img/service-interior-1280.webp" srcset="assets/img/service-interior-640.webp 640w, assets/img/service-interior-1280.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Мастер Meatwash очищает кожаную дверную карту и салон автомобиля" width="1280" height="852" loading="lazy" decoding="async">
     <span class="card__label"><span>02</span><span>Салон</span></span>
     <span class="card__caption">Химчистка салона</span>
-  </button>
-  <button class="card card--polish" id="card-polish" type="button" data-service="polish" aria-haspopup="dialog">
-    <img src="assets/img/service-polish-1280-wine.webp" srcset="assets/img/service-polish-640-wine.webp 640w, assets/img/service-polish-1280-wine.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Мастер Meatwash полирует кузов машинкой при направленном свете" width="1280" height="852" loading="lazy" decoding="async">
+  </a>
+  <a class="card card--polish" id="card-polish" href="#service-dialog" data-service="polish">
+    <img src="assets/img/service-polish-1280.webp" srcset="assets/img/service-polish-640.webp 640w, assets/img/service-polish-1280.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Мастер Meatwash полирует кузов машинкой при направленном свете" width="1280" height="852" loading="lazy" decoding="async">
     <span class="card__label"><span>03</span><span>Полировка</span></span>
     <span class="card__caption">Полировка кузова</span>
-  </button>
-  <button class="card card--ceramic" id="card-ceramic" type="button" data-service="ceramic" aria-haspopup="dialog">
-    <img src="assets/img/service-protection-1280-wine.webp" srcset="assets/img/service-protection-640-wine.webp 640w, assets/img/service-protection-1280-wine.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Иллюстрация гидрофобного эффекта: чёткие капли воды на лаке" width="1280" height="957" loading="lazy" decoding="async">
+  </a>
+  <a class="card card--ceramic" id="card-ceramic" href="#service-dialog" data-service="ceramic">
+    <img src="assets/img/service-protection-1280.webp" srcset="assets/img/service-protection-640.webp 640w, assets/img/service-protection-1280.webp 1280w" sizes="(max-width: 1100px) 100vw, 34vw" alt="Иллюстрация гидрофобного эффекта: чёткие капли воды на лаке" width="1280" height="957" loading="lazy" decoding="async">
     <span class="card__label"><span>04</span><span>Керамика</span></span>
     <span class="card__caption">Керамическая защита</span>
-  </button>
+  </a>
 </section>
 
 <!-- ============ ABOUT ============ -->
 <!-- CATALOG:START -->
 <section class="catalog" id="services" aria-labelledby="catalog-title">
- <div class="catalog__heading"><div><p class="eyebrow" lang="en">MEATWASH / CAR CARE</p><h2 id="catalog-title">Искусство ухода.<br>В деталях.</h2></div><p>Пять программ мойки и весь спектр детейлинга. Выберите уход под состояние автомобиля — от регулярной мойки до восстановления и защиты.</p></div>
+ <div class="catalog__heading"><div><p class="eyebrow">MEATWASH / CAR CARE</p><h2 id="catalog-title">Искусство ухода.<br>В деталях.</h2></div><p>Пять программ мойки и весь спектр детейлинга. Выберите уход под состояние автомобиля — от регулярной мойки до восстановления и защиты.</p></div>
  <div class="catalog__section" id="programs">
-  <div class="catalog__aside"><span class="eyebrow" lang="en">01 / WASH</span><h3>Программы<br> мойки</h3><p>Каждая следующая программа включает предыдущую.</p></div>
+  <div class="catalog__aside"><span class="eyebrow">01 / WASH</span><h3>Программы<br> мойки</h3><p>Каждая следующая программа включает предыдущую.</p></div>
   <div class="catalog__content"><fieldset class="body-types"><legend>Тип кузова</legend><label><input type="radio" name="body-type" value="0" checked><span>Седан</span></label><label><input type="radio" name="body-type" value="1"><span>Кроссовер</span></label><label><input type="radio" name="body-type" value="2"><span>Внедорожник</span></label><label><input type="radio" name="body-type" value="3"><span>Микроавтобус</span></label></fieldset>
    <p class="catalog__selection" id="body-price-label" aria-live="polite">Цены для типа кузова: Седан</p>
    <details class="catalog__entry program-entry" id="program-0"><summary><span class="catalog__number">01</span><span class="catalog__name">Трёхфазная</span><span class="catalog__time">30 минут</span><span class="catalog__price" data-program-price data-prices="2150,2250,2450,2650">2 150 ₽</span><span class="catalog__toggle" aria-hidden="true">+</span></summary><div class="catalog__expanded"><p>Предварительная пена, активная химия и ручная финишная проработка.</p><ul class="program-includes"><li>Предварительная бесконтактная пена</li><li>Активная пена, выдержка, смыв</li><li>Ручная мойка кузова и стёкол</li><li>Сушка кузова и обдув зеркал</li><li>Мойка ковриков</li></ul><button class="btn btn--ghost" type="button" data-book>Записаться <span aria-hidden="true">↗</span></button></div></details>
@@ -158,7 +157,7 @@
   </div>
  </div>
  <div class="catalog__section" id="price-list">
-  <div class="catalog__aside"><span class="eyebrow" lang="en">02 / DETAILING</span><h3>Услуги<br> и цены</h3><p>39 работ в восьми направлениях. Дополните программу мойки или запишитесь на отдельную услугу.</p><a class="link-arrow" href="#locations">Выбрать локацию ↗</a></div>
+  <div class="catalog__aside"><span class="eyebrow">02 / DETAILING</span><h3>Услуги<br> и цены</h3><p>39 работ в восьми направлениях. Дополните программу мойки или запишитесь на отдельную услугу.</p><a class="link-arrow" href="#locations">Выбрать локацию ↗</a></div>
   <div class="catalog__content"><details class="catalog__entry service-group" id="price-interior"><summary><span class="catalog__number">01</span><span class="catalog__name">Химчистка салона</span><span class="catalog__count">8 поз.</span><span class="catalog__toggle" aria-hidden="true">+</span></summary><div class="catalog__expanded"><p>Ткань, алькантара и кожа. От ухода за отдельной деталью до полной химчистки.</p><dl class="catalog__prices"><div data-price-item><dt>Пылесос салона</dt><dd>600 ₽</dd></div><div data-price-item><dt>Чистка багажника</dt><dd>500 ₽</dd></div><div data-price-item><dt>Химчистка отдельного элемента</dt><dd>1 000 ₽</dd></div><div data-price-item><dt>Химчистка руля</dt><dd>1 000 ₽</dd></div><div data-price-item><dt>Химчистка сиденья</dt><dd>2 000 ₽</dd></div><div data-price-item><dt>Озонация салона</dt><dd>1 000 ₽</dd></div><div data-price-item><dt>Сухой туман</dt><dd>1 000 ₽</dd></div><div data-price-item><dt>Детейлинг-химчистка салона</dt><dd>20 000 ₽</dd></div></dl><button class="btn btn--ghost" type="button" data-book>Записаться <span aria-hidden="true">↗</span></button></div></details>
 <details class="catalog__entry service-group" id="price-leather"><summary><span class="catalog__number">02</span><span class="catalog__name">Кожа и пластик</span><span class="catalog__count">5 поз.</span><span class="catalog__toggle" aria-hidden="true">+</span></summary><div class="catalog__expanded"><p>Очищение, питание и защита материалов интерьера.</p><dl class="catalog__prices"><div data-price-item><dt>Очистка кондиционера</dt><dd>1 000 ₽</dd></div><div data-price-item><dt>Кондиционер кожи сидений</dt><dd>2 000 ₽</dd></div><div data-price-item><dt>Восстановление пластика салона</dt><dd>2 000 ₽</dd></div><div data-price-item><dt>Химчистка и защита кожи кремом LeTech</dt><dd>3 000 ₽</dd></div><div data-price-item><dt>Керамика кожи салона</dt><dd>15 000 ₽</dd></div></dl><button class="btn btn--ghost" type="button" data-book>Записаться <span aria-hidden="true">↗</span></button></div></details>
 <details class="catalog__entry service-group" id="price-protection"><summary><span class="catalog__number">03</span><span class="catalog__name">Защита кузова</span><span class="catalog__count">6 поз.</span><span class="catalog__toggle" aria-hidden="true">+</span></summary><div class="catalog__expanded"><p>Кварц, керамика и защитная плёнка.</p><dl class="catalog__prices"><div data-price-item><dt>Защитное кварцевое покрытие кузова</dt><dd>2 000 ₽</dd></div><div data-price-item><dt>Оклейка фар плёнкой</dt><dd>10 000 ₽</dd></div><div data-price-item><dt>Керамическое покрытие кузова</dt><dd>15 000 ₽</dd></div><div data-price-item><dt>Бронирование лобового стекла</dt><dd>30 000 ₽</dd></div><div data-price-item><dt>Керамика дисков</dt><dd>35 000 ₽</dd></div><div data-price-item><dt>Оклейка зон риска кузова</dt><dd>180 000 ₽</dd></div></dl><button class="btn btn--ghost" type="button" data-book>Записаться <span aria-hidden="true">↗</span></button></div></details>
@@ -171,15 +170,15 @@
    <p class="catalog__note">Стоимость зависит от типа кузова и состояния автомобиля. Итоговый объём и цену согласуем перед работой. Не является публичной офертой.</p>
   </div>
  </div>
- <div class="catalog__concierge"><div><p class="eyebrow" lang="en">INDIVIDUAL CARE</p><h3>Под вашу задачу.</h3><p>Комплекс перед продажей, защита нового автомобиля или регулярный уход за автопарком. Для корпоративных клиентов — индивидуальный расчёт, консьерж-сервис и единый счёт.</p></div><button class="btn btn--fill" type="button" data-book>Обсудить уход ↗</button></div>
+ <div class="catalog__concierge"><div><p class="eyebrow">INDIVIDUAL CARE</p><h3>Под вашу задачу.</h3><p>Комплекс перед продажей, защита нового автомобиля или регулярный уход за автопарком. Для корпоративных клиентов — индивидуальный расчёт, консьерж-сервис и единый счёт.</p></div><button class="btn btn--fill" type="button" data-book>Обсудить уход ↗</button></div>
 </section>
 <!-- CATALOG:END -->
 <section class="about" id="club" aria-labelledby="about-title">
   <div class="about__photo" data-reveal>
-    <img src="assets/img/about-restored-1448-wine.webp" srcset="assets/img/about-restored-800-wine.webp 800w, assets/img/about-restored-1448-wine.webp 1448w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 50vw, 36vw" alt="Классический Porsche 911 с номером MEATWASH" width="1448" height="1086" loading="lazy" decoding="async">
+    <img src="assets/img/about-restored-1448.webp" srcset="assets/img/about-restored-800.webp 800w, assets/img/about-restored-1448.webp 1448w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 50vw, 36vw" alt="Классический Porsche 911 Targa с номером MEATWASH, улучшенный чёрно-белый кадр" width="1448" height="1086" loading="lazy" decoding="async">
   </div>
   <div class="about__copy">
-    <h2 class="about__title" id="about-title">Car Care Club</h2>
+    <img class="about__logo" id="about-title" src="assets/brand/Main_Logo_black.svg" alt="MEATWASH Car Care Club" width="1480" height="1301" loading="lazy" decoding="async">
     <p>Ручной уход за автомобилем в Москве. Подбираем химию под покрытие, согласуем работы на приёмке и проверяем результат перед выдачей.</p>
     <a class="btn btn--ghost btn--ink" href="#membership">О клубе</a>
   </div>
@@ -189,16 +188,14 @@
     <div><dt>30 мин</dt><dd>Мойка от</dd></div>
   </dl>
 </section>
-<section class="visit-notes" aria-labelledby="visit-title">
- <h2 class="visually-hidden" id="visit-title">Перед визитом</h2>
- <article><span class="eyebrow" lang="en">FIRST VISIT</span><h3>Первое знакомство</h3><p>Новым клиентам — защитное кварцевое покрытие кузова в подарок и скидка 500 ₽ на первую мойку. Условия уточняйте при записи.</p><button class="link-arrow" type="button" data-book>Записаться ↗</button></article>
- <article><span class="eyebrow" lang="en">YOUR TIME</span><h3>Пока вы заняты</h3><p>На Мясницкой два часа закрытого паркинга включены в мойку. В зоне ожидания — Wi-Fi, вода и кофе. Кофемания — этажом выше.</p></article>
- <article><span class="eyebrow" lang="en">AT YOUR CONVENIENCE</span><h3>Удобная оплата</h3><p>Карта, СБП, QR, наличные, безналичный расчёт и рассрочка. На Мясницкой можно оплатить из автомобиля. Онлайн-запись доступна круглосуточно.</p></article>
+<section class="visit-notes" aria-label="Перед визитом">
+ <article><span class="eyebrow">FIRST VISIT</span><h3>Первое знакомство</h3><p>Новым клиентам — защитное кварцевое покрытие кузова в подарок и скидка 500 ₽ на первую мойку. Условия уточняйте при записи.</p><button class="link-arrow" type="button" data-book>Записаться ↗</button></article>
+ <article><span class="eyebrow">YOUR TIME</span><h3>Пока вы заняты</h3><p>На Мясницкой два часа закрытого паркинга включены в мойку. В зоне ожидания — Wi-Fi, вода и кофе. Кофемания — этажом выше.</p></article>
+ <article><span class="eyebrow">AT YOUR CONVENIENCE</span><h3>Удобная оплата</h3><p>Карта, СБП, QR, наличные, безналичный расчёт и рассрочка. На Мясницкой можно оплатить из автомобиля. Онлайн-запись доступна круглосуточно.</p></article>
 </section>
 
 <!-- ============ LOCATIONS ============ -->
-<section class="locations" id="locations" aria-labelledby="locations-title">
-  <h2 class="visually-hidden" id="locations-title">Локации</h2>
+<section class="locations" id="locations" aria-label="Локации">
   <article class="location">
     <div class="location__card">
       <h3>Мясницкая</h3>
@@ -209,7 +206,7 @@
       <button class="location__book link-arrow" type="button" data-book>Записаться ↗</button>
       <a class="link-arrow" href="https://yandex.ru/maps/org/meat_wash/191686454110/" target="_blank" rel="noopener noreferrer">Подробнее <span aria-hidden="true">→</span></a>
     </div>
-    <a class="location__photo location__photo--myasnitskaya" href="https://yandex.ru/maps/org/meat_wash/191686454110/gallery/" target="_blank" rel="noopener noreferrer" aria-label="Фотографии студии на Мясницкой — Яндекс Карты"><img src="assets/img/studio-myasnitskaya-1200-wine.webp" srcset="assets/img/studio-myasnitskaya-640-wine.webp 640w, assets/img/studio-myasnitskaya-1200-wine.webp 1170w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 53vw, 27vw" alt="Range Rover у фирменной стены Meat Wash в студии на Мясницкой" width="1170" height="772" loading="lazy" decoding="async"><span>Фотографии студии ↗</span></a>
+    <a class="location__photo location__photo--myasnitskaya" href="https://yandex.ru/maps/org/meat_wash/191686454110/gallery/" target="_blank" rel="noopener noreferrer" aria-label="Фотографии студии на Мясницкой — Яндекс Карты"><img src="assets/img/studio-myasnitskaya-1200.webp" srcset="assets/img/studio-myasnitskaya-640.webp 640w, assets/img/studio-myasnitskaya-1200.webp 1170w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 53vw, 27vw" alt="Range Rover у фирменной стены Meat Wash в студии на Мясницкой" width="1170" height="772" loading="lazy" decoding="async"><span>Фотографии студии ↗</span></a>
   </article>
   <article class="location">
     <div class="location__card">
@@ -221,14 +218,14 @@
       <button class="location__book link-arrow" type="button" data-book>Записаться ↗</button>
       <a class="link-arrow" href="https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/" target="_blank" rel="noopener noreferrer">Подробнее <span aria-hidden="true">→</span></a>
     </div>
-    <a class="location__photo location__photo--technopark" href="https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/gallery/" target="_blank" rel="noopener noreferrer" aria-label="Фотографии студии Технопарк — Яндекс Карты"><img src="assets/img/studio-technopark-1200-wine.webp" srcset="assets/img/studio-technopark-640-wine.webp 640w, assets/img/studio-technopark-1200-wine.webp 1031w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 53vw, 27vw" alt="Красный Mercedes G-Class в студии Meat Wash Технопарк с красно-чёрным интерьером" width="1031" height="1280" loading="lazy" decoding="async"><span>Фотографии студии ↗</span></a>
+    <a class="location__photo location__photo--technopark" href="https://yandex.ru/maps/org/meat_wash_tekhnopark/122667992007/gallery/" target="_blank" rel="noopener noreferrer" aria-label="Фотографии студии Технопарк — Яндекс Карты"><img src="assets/img/studio-technopark-1200.webp" srcset="assets/img/studio-technopark-640.webp 640w, assets/img/studio-technopark-1200.webp 1031w" sizes="(max-width: 800px) 100vw, (max-width: 1100px) 53vw, 27vw" alt="Красный Mercedes G-Class в студии Meat Wash Технопарк с красно-чёрным интерьером" width="1031" height="1280" loading="lazy" decoding="async"><span>Фотографии студии ↗</span></a>
   </article>
 </section>
 
 <!-- ============ MEMBERSHIP ============ -->
 <section class="membership" id="membership" aria-labelledby="membership-title">
   <div class="membership__card" data-reveal>
-    <div class="club-card" aria-hidden="true"><img src="assets/brand/Horizontal_Logo.svg" alt="" width="2520" height="654" loading="lazy" decoding="async"></div>
+    <img src="assets/img/member-card.webp" alt="Членская карта MEATWASH Car Care Club" width="675" height="321" loading="lazy" decoding="async">
   </div>
   <div class="membership__copy">
     <h2 id="membership-title">Больше, чем сервис</h2>
@@ -237,12 +234,10 @@
   </div>
 </section>
 
-</main>
-
 <!-- ============ FOOTER ============ -->
 <footer class="footer" id="contacts">
   <div class="footer__row">
-    <a class="brand" href="#top"><img class="footer__logo" src="assets/brand/Main_Logo.svg" alt="MEATWASH Car Care Club" width="1480" height="1301" loading="lazy" decoding="async"></a>
+    <a class="brand" href="#top"><img class="brand__logo brand__logo--footer" src="assets/brand/Horizontal_Logo.svg" alt="MEATWASH Car Care Club" width="2520" height="654" loading="lazy" decoding="async"></a>
     <nav class="footer__nav" aria-label="Навигация в подвале">
       <a href="#services">Услуги</a><a href="#locations">Локации</a><a href="#club">О клубе</a><a href="#contacts">Контакты</a>
     </nav>
@@ -258,17 +253,18 @@
   </div>
   <div class="footer__base">
     <span>© 2026 Meatwash. Все права защищены.</span>
-    <span lang="en">Moscow, Russia</span>
+    <span>Moscow, Russia</span>
     <span>Чистота. Стиль. Характер. <a class="credits-link" href="credits.html" aria-label="Авторы визуальных материалов">↗</a></span>
   </div>
 </footer>
+</main>
 
 <button class="btn btn--fill mobile-cta" type="button" data-book>Записаться</button>
 
 <!-- ============ BOOKING ============ -->
 <dialog class="dialog" id="booking" aria-labelledby="booking-title">
   <form method="dialog"><button class="dialog__close" aria-label="Закрыть">×</button></form>
-  <span class="eyebrow" lang="en">MEATWASH / CAR CARE CLUB</span>
+  <span class="eyebrow">MEATWASH / CAR CARE CLUB</span>
   <h2 id="booking-title">Записаться</h2>
   <p>Филиал, услуга и время выбираются в онлайн-записи.</p>
   <a class="btn btn--fill" href="https://n975571.yclients.com" target="_blank" rel="noopener noreferrer">Выбрать время <span aria-hidden="true">→</span></a>

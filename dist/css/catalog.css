@@ -1,14 +1,14 @@
 /* Editorial price list: native disclosures, no dependency on the 3D scene. */
-.strip .card>img{will-change:auto}
+.strip .card>img{filter:saturate(.78);will-change:auto}
 .strip .card--interior>img{object-position:58% 54%}
 .strip .card--polish>img{object-position:50% 60%}
-.strip .card--ceramic>img{object-position:50% 75%}
-.strip .card::after{background:linear-gradient(180deg,rgba(0,0,0,.65),transparent 38%,transparent 60%,rgba(0,0,0,.7))}
+.strip .card--ceramic>img{object-position:50% 75%;filter:saturate(.45) brightness(.8)}
+.strip .card::after{background:linear-gradient(180deg,rgba(8,8,8,.65),transparent 38%,transparent 60%,rgba(8,8,8,.7))}
 .strip .card__caption{color:var(--ivory)}
-.catalog{padding:110px var(--gutter);background:#000;color:var(--ivory)}
+.catalog{padding:110px var(--gutter);background:#0d0b0a;color:var(--ivory)}
 .catalog [id],.catalog{scroll-margin-top:calc(var(--header-h) + 24px)}
 .catalog__heading{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end;margin-bottom:80px}
-.catalog h2{font-size:clamp(36px,4.2vw,66px);line-height:1.12;letter-spacing:-.02em;margin-top:24px}
+.catalog h2{font-size:clamp(36px,4.2vw,66px);line-height:1.12;letter-spacing:.01em;margin-top:24px}
 .catalog__heading>p{max-width:44ch;justify-self:end;font-size:15px;line-height:1.9;color:var(--muted)}
 .catalog__section{display:grid;grid-template-columns:26% 1fr;gap:7%;padding-top:50px;margin-top:65px;border-top:1px solid var(--line)}
 .catalog__aside h3,.catalog__concierge h3{font-size:clamp(26px,2.5vw,40px);line-height:1.2;margin:20px 0}
@@ -20,7 +20,7 @@
 .body-types label{position:relative;cursor:pointer}
 .body-types input{position:absolute;opacity:0;width:1px;height:1px}
 .body-types span{display:block;padding:10px 14px;border:1px solid var(--line);font-size:12px;transition:background .2s}
-.body-types input:checked+span{background:var(--burgundy);border-color:#861A22;color:var(--ivory)}
+.body-types input:checked+span{background:var(--burgundy);border-color:#76373c;color:var(--ivory)}
 .body-types input:focus-visible+span{outline:2px solid var(--ivory);outline-offset:3px}
 .catalog__selection{font-size:11px;color:var(--muted);margin-bottom:24px}
 .catalog__entry{border-bottom:1px solid var(--line)}
@@ -33,7 +33,7 @@
 .catalog__price{font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .catalog__toggle{font-size:20px;line-height:1;color:var(--beige);text-align:center;transition:transform .2s}
 .catalog__entry[open] .catalog__toggle{transform:rotate(45deg)}
-.catalog__entry[open] .catalog__name{color:#fff}
+.catalog__entry[open] .catalog__name{color:#fff2df}
 .catalog__expanded{padding:0 0 30px 39px}
 .program-includes{padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin:22px 0 26px}
 .program-includes li{font-size:12px;color:var(--ivory);line-height:1.7;position:relative;padding-left:14px}
@@ -41,7 +41,7 @@
 .catalog__expanded .btn{height:40px;font-size:12px}
 .service-group summary{grid-template-columns:24px minmax(0,1fr) auto 14px}
 .catalog__prices{margin:18px 0 24px}
-.catalog__prices>div{display:grid;grid-template-columns:1fr auto;gap:28px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.65}
+.catalog__prices>div{display:grid;grid-template-columns:1fr auto;gap:28px;padding:14px 0;border-bottom:1px solid rgba(233,223,208,.08);font-size:13px;line-height:1.65}
 .catalog__prices dd{white-space:nowrap;font-variant-numeric:tabular-nums}
 .catalog__note{margin-top:24px;font-size:11px}
 .catalog__extra{display:flex;justify-content:space-between;gap:25px;align-items:center;padding:30px 0;font-size:14px}
@@ -60,10 +60,10 @@
 .location__phone{display:block;font-size:14px;margin-bottom:20px}
 .location__book{margin-right:20px}
 .location__photo{position:relative;display:block;min-width:0}
-.location__photo img{position:absolute;inset:0}
+.location__photo img{position:absolute;inset:0;filter:saturate(.9) brightness(.96)}
 .location__photo--myasnitskaya img{object-position:48% 50%}
 .location__photo--technopark img{object-position:42% 62%}
-.location__photo>span{position:absolute;bottom:0;left:0;right:0;padding:42px 18px 18px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:var(--ivory);font-size:11px;letter-spacing:.025em}
+.location__photo>span{position:absolute;bottom:0;left:0;right:0;padding:42px 18px 18px;background:linear-gradient(transparent,rgba(8,8,8,.78));color:var(--ivory);font-size:11px;letter-spacing:.025em}
 .location__photo:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
 @media(max-width:800px) and (orientation:portrait){.location__photo{height:260px}.location__photo--technopark img{object-position:50% 65%}}
 .service-all-prices{display:inline-block;margin:22px 0;font-size:12px}
