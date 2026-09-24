@@ -112,9 +112,10 @@ body.cfg-open .scene__skip{
 }
 body.cfg-open .chapter-nav{ display:none; }
 
-/* Кнопка открытия — рядом с «Все услуги», в том же ряду. */
+/* Кнопка открытия — под шапкой справа. Внизу слева она наезжала на «Записаться»
+   в hero: высота блока hero зависит от окна. Справа сверху в сцене ничего нет. */
 .scene__cfg{
-  position:absolute; left:clamp(14px,3vw,40px); bottom:calc(clamp(14px,3vw,40px) + 34px);
+  position:absolute; right:var(--gutter); top:calc(var(--header-h) + 20px);
   z-index:7; min-height:44px; padding:10px 18px;
   background:rgba(8,8,8,.7); backdrop-filter:blur(8px);
   border:1px solid rgba(233,223,208,.22); border-radius:3px;
@@ -124,9 +125,7 @@ body.cfg-open .chapter-nav{ display:none; }
 .scene__cfg:hover{ border-color:#861A22; background:rgba(134,26,34,.28); }
 .scene__cfg[aria-expanded="true"]{ background:#861A22; border-color:#861A22; }
 @media (max-width:720px){
-  /* Над нижней кнопкой записи, а не поверх неё. */
-  .scene__cfg{ bottom:calc(env(safe-area-inset-bottom,0px) + 62px); left:50%; transform:translateX(-50%); }
-  body.cfg-open .scene__cfg{ bottom:auto; top:calc(env(safe-area-inset-top,0px) + 76px); }
+  .scene__cfg{ top:calc(env(safe-area-inset-top,0px) + var(--header-h) + 12px); right:16px; }
 }
 
 /* Шапка панели с крестиком. */
