@@ -44,7 +44,8 @@ document.addEventListener('click',e=>{
  const open=e.target.closest('[data-cfg-open]');
  if(open){e.preventDefault();configurator.isOpen?configurator.close():configurator.open();}
 },{signal:controller.signal});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&configurator.isOpen)configurator.close();},{signal:controller.signal});
+// Esc обрабатывает сам гараж: сначала выход из ролика или кинорежима и только
+// потом закрытие панели. Здесь дубля быть не должно — он закрывал всё разом.
 const cleanupUI=setupUI(goToStop);
 
 function setVisibility(el,amount,interactive=true){
