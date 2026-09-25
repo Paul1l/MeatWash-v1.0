@@ -13,49 +13,74 @@ const priceOf = (key) => Math.min(...SERVICES[key].prices.map(([, p]) => p));
 
 export function setupConfigurator({ mount, getScene, onOpen, onClose }) {
   const picked = new Set();
+  const abort = new AbortController(), options = { signal: abort.signal };
   let frame = 0;
   let from = { ...SERVICE_BASE };
   let to = { ...SERVICE_BASE };
   let startedAt = 0;
   let open = false;
+  let opener = null;
 
-  mount.innerHTML = `
-    <div class="cfg" hidden>
-      <div class="cfg__head">
-        <p class="cfg__eyebrow">Примерочная</p>
-        <h3 class="cfg__title">Соберите уход и смотрите на машину</h3>
-        <button class="cfg__close" type="button" data-cfg-close aria-label="Закрыть примерочную">×</button>
-      </div>
-      <ul class="cfg__list">
-        ${KEYS.map((k) => `
-          <li>
-            <label class="cfg__item">
-              <input type="checkbox" value="${k}">
-              <span class="cfg__box" aria-hidden="true"></span>
-              <span class="cfg__text">
-                <b>${SERVICES[k].title}</b>
-                <i>от ${money(priceOf(k))}</i>
-              </span>
-            </label>
-          </li>`).join('')}
-      </ul>
-      <p class="cfg__total">
-        <span>Итого</span>
-        <b data-total>—</b>
-      </p>
-      <div class="cfg__act">
-        <button class="btn btn--fill" type="button" data-book>Записаться</button>
-        <button class="btn btn--ghost" type="button" data-cfg-reset>Сбросить</button>
-      </div>
-      <p class="cfg__note">Цены минимальные по каждой услуге. Точную стоимость называет мастер после осмотра.</p>
-    </div>`;
+  // Разметка панели собирается элементами: названия и цены услуг попадают
+  // в textContent, а не в строку разметки.
+  const make = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
 
-  const panel = mount.querySelector('.cfg');
-  const OVERLAYS = '.hero, .hero-bar, .hero__dot, .chapter, .finale, .scene__skip';
+  const panel = make('div', 'cfg');
+  panel.id = 'cfg-panel';
+  panel.hidden = true;
+  panel.tabIndex = -1;
+
+  const head = make('div', 'cfg__head');
+  head.append(make('p', 'cfg__eyebrow', 'Примерочная'), make('h3', 'cfg__title', 'Соберите уход и смотрите на машину'));
+  const closeButton = make('button', 'cfg__close', '×');
+  closeButton.type = 'button';
+  closeButton.setAttribute('data-cfg-close', '');
+  closeButton.setAttribute('aria-label', 'Закрыть примерочную');
+  head.append(closeButton);
+
+  const list = make('ul', 'cfg__list');
+  for (const key of KEYS) {
+    const item = make('label', 'cfg__item');
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.value = key;
+    const box = make('span', 'cfg__box');
+    box.setAttribute('aria-hidden', 'true');
+    const text = make('span', 'cfg__text');
+    text.append(make('b', '', SERVICES[key].title), make('i', '', 'от ' + money(priceOf(key))));
+    item.append(input, box, text);
+    const row = document.createElement('li');
+    row.append(item);
+    list.append(row);
+  }
+
+  const totalRow = make('p', 'cfg__total');
+  const total = make('b', '', '—');
+  total.setAttribute('data-total', '');
+  totalRow.append(make('span', '', 'Итого'), total);
+
+  const act = make('div', 'cfg__act');
+  const bookButton = make('button', 'btn btn--fill', 'Записаться');
+  bookButton.type = 'button';
+  bookButton.setAttribute('data-book', '');
+  const resetButton = make('button', 'btn btn--ghost', 'Сбросить');
+  resetButton.type = 'button';
+  resetButton.setAttribute('data-cfg-reset', '');
+  act.append(bookButton, resetButton);
+
+  panel.append(head, list, totalRow, act,
+    make('p', 'cfg__note', 'Цены минимальные по каждой услуге. Точную стоимость называет мастер после осмотра.'));
+  mount.replaceChildren(panel);
+
+  const OVERLAYS = '.hero, .hero-bar, .chapter, .finale, .scene__skip';
   const freezeOverlays = (on) => {
     document.querySelectorAll(OVERLAYS).forEach((el) => { el.inert = on; });
   };
-  const total = mount.querySelector('[data-total]');
 
   function target() {
     if (!picked.size) return { ...SERVICE_BASE };
@@ -99,8 +124,12 @@ export function setupConfigurator({ mount, getScene, onOpen, onClose }) {
   }
 
   function refreshTotal() {
-    if (!picked.size) { total.textContent = '—'; return; }
-    total.textContent = 'от ' + money([...picked].reduce((s, k) => s + priceOf(k), 0));
+    const sum = [...picked].reduce((s, k) => s + priceOf(k), 0);
+    total.textContent = picked.size ? 'от ' + money(sum) : '—';
+    // Собранный набор уезжает в окно записи тем же путём, что и остальные
+    // кнопки: через data-book-context, без дописывания текста после открытия.
+    if (picked.size) bookButton.dataset.bookContext = [...picked].map((k) => SERVICES[k].title).join(', ') + ' · ориентир от ' + money(sum);
+    else delete bookButton.dataset.bookContext;
   }
 
   panel.addEventListener('change', (e) => {
@@ -110,23 +139,12 @@ export function setupConfigurator({ mount, getScene, onOpen, onClose }) {
     input.closest('.cfg__item').classList.toggle('is-on', input.checked);
     refreshTotal();
     retarget(input.checked ? SERVICE_VIEW[input.value].cam : undefined);
-  });
-
-  // «Записаться» из примерочной уносит собранный набор в окно записи.
-  // Диалог открывает общий обработчик интерфейса, поэтому состав дописываем
-  // следующим тиком, когда он уже подставил свой текст.
-  panel.addEventListener('click', (e) => {
-    if (!e.target.closest('[data-book]') || !picked.size) return;
-    const names = [...picked].map((k) => SERVICES[k].title);
-    const sum = [...picked].reduce((s, k) => s + priceOf(k), 0);
-    setTimeout(() => {
-      const line = document.querySelector('#booking p');
-      if (line) line.textContent = 'Вы собрали: ' + names.join(', ') + '. Ориентир — от ' + money(sum) + '. Филиал и время выбираются в онлайн-записи.';
-      api.close();
-    }, 0);
-  });
+  }, options);
 
   panel.addEventListener('click', (e) => {
+    // «Записаться» обрабатывает общий интерфейс: панель только уходит с экрана,
+    // состав уже лежит в data-book-context кнопки.
+    if (e.target.closest('[data-book]')) return api.close();
     if (e.target.closest('[data-cfg-close]')) return api.close();
     if (!e.target.closest('[data-cfg-reset]')) return;
     picked.clear();
@@ -136,21 +154,24 @@ export function setupConfigurator({ mount, getScene, onOpen, onClose }) {
     });
     refreshTotal();
     retarget();
-  });
+  }, options);
 
   const api = {
-    open() {
+    open(button) {
       if (open || !getScene()) return;
       open = true;
+      opener = button || document.querySelector('[data-cfg-open]');
       panel.hidden = false;
       document.body.classList.add('cfg-open');
       freezeOverlays(true);
       from = { ...SERVICE_BASE };
       retarget();
       onOpen?.();
+      panel.focus();
     },
     close() {
       if (!open) return;
+      // Сначала снимаем флаг: восстановление слоёв в onClose смотрит на него.
       open = false;
       panel.hidden = true;
       document.body.classList.remove('cfg-open');
@@ -158,10 +179,12 @@ export function setupConfigurator({ mount, getScene, onOpen, onClose }) {
       cancelAnimationFrame(frame);
       getScene()?.setManual(null);
       onClose?.();
+      opener?.focus();
+      opener = null;
     },
     get isOpen() { return open; },
     selected: () => [...picked],
-    destroy() { cancelAnimationFrame(frame); freezeOverlays(false); },
+    destroy() { abort.abort(); cancelAnimationFrame(frame); freezeOverlays(false); },
   };
   return api;
 }
