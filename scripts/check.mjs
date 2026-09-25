@@ -47,11 +47,15 @@ assert(!/<img[^>]*\ssrc="assets\/img\/hero-hq\.webp"/.test(html),'Photographic h
 assert.equal(Object.keys(config.SERVICES).length,4);
 const sourcePrices=new Set([...content.programs.map(x=>x[1]),...content.groups.flatMap(g=>g.items.map(x=>x[1]))]);
 for(const service of Object.values(config.SERVICES))for(const [,price] of service.prices)assert(sourcePrices.has(price),'Unsupported price '+price);
-assert(html.includes(content.booking),'Real booking link missing');
+// У площадок разные компании в yclients: общий адрес открывает только одну из них.
+for(const location of content.locations){
+ assert(/^https:\/\/n\d+\.yclients\.com\/company\/\d+\//.test(location.booking||''),'Missing yclients link for '+location.id);
+ assert(html.includes(`href="${location.booking}"`),'Booking link for '+location.id+' missing on the page');
+}
 const model=await readFile(resolve(dist,'assets/porsche-930-optimized.glb'));
 const gltf=JSON.parse(model.subarray(20,20+model.readUInt32LE(12)).toString());
 assert(gltf.extensionsRequired.includes('EXT_meshopt_compression'));
 for(const surface of ['Object_113','Object_9','Object_30'])assert(gltf.nodes.some(node=>node.name===surface),'Missing Porsche surface '+surface);
 assert((await readFile(resolve(dist,'js/main.js'),'utf8')).includes("import('./scene.bundle.js')"));
 assert.equal(failures.length,0,failures.join('\n'));
-console.log('PASS: JS syntax, module paths, local assets, anchors, six camera stops, four services, supplied prices and booking destination.');
+console.log('PASS: JS syntax, module paths, local assets, anchors, six camera stops, four services, supplied prices and both branch booking destinations.');
